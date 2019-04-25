@@ -8,4 +8,5 @@ module.exports = (req, res, next) => {
       SuccessMessage: null
     });
   }
+  next()
 };

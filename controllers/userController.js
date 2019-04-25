@@ -1,13 +1,12 @@
 const Movie = require("../models/Movies");
-
 const User = require("../models/User");
+const addToLikeMethod = require('../middlewares/addToLike');
 const bcrypt = require("bcryptjs");
 const nodeMailer = require("nodemailer");
 const sendgridTransport = require("nodemailer-sendgrid-transport");
 const crypto = require("crypto");
 const { validationResult } = require("express-validator/check");
 
-const mongodb = require("mongodb");
 const transport = nodeMailer.createTransport(
   sendgridTransport({
     auth: {
@@ -254,27 +253,11 @@ exports.likesPost = (req, res, next) => {
   const movieId = req.body.movieId;
   const userId = req.user._id;
   Movie.findById(movieId)
-    .then(movie => {
-      const likes = req.user.likes;
-      const filtedredLikes = likes.items.filter(item => {
-        return item.movieId.toString() !== movie._id.toString();
-      });
-      const updatedLikeItems = [...filtedredLikes];
-      updatedLikeItems.push({
-        movieId: movie._id,
-        name: movie.name,
-        poster: movie.image.original
-      });
-      // console.log(updatedLikeItems);
-      
-      const updatedLikes = {
-        items: updatedLikeItems
-      };
-
+  .then(movie => {
+    const likes = req.user.likes;
+   const updatedLikes =addToLikeMethod(movieId, movie, likes);
       User.findById(userId)
         .then(user => {
-          console.log(user.likes);
-          
           user.likes = updatedLikes;
           user.save();
           res.redirect("/likes");
