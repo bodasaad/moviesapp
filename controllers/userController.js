@@ -1,13 +1,12 @@
 const Movie = require("../models/Movies");
-
 const User = require("../models/User");
+// const addToLikeMethod = require("../middlewares/addToLike");
 const bcrypt = require("bcryptjs");
 const nodeMailer = require("nodemailer");
 const sendgridTransport = require("nodemailer-sendgrid-transport");
 const crypto = require("crypto");
 const { validationResult } = require("express-validator/check");
 
-const mongodb = require("mongodb");
 const transport = nodeMailer.createTransport(
   sendgridTransport({
     auth: {
@@ -66,9 +65,11 @@ exports.postSignUp = (req, res, next) => {
     });
   }
 
-  return User.find({ email: email })
+  User.find({email: email})
     .then(result => {
       if (result) {
+        console.log(result);
+
         return res.status(422).render("signup", {
           title: "Sign Up",
           path: "/signup",
@@ -113,7 +114,7 @@ exports.postSignUp = (req, res, next) => {
             <p>Click <a href="http://localhost:3000/verfiy/${token}">HERE</a></p>
             `
             });
-            return res.redirect("/");
+            return res.redirect("/thanks");
           });
       });
     })
@@ -122,6 +123,23 @@ exports.postSignUp = (req, res, next) => {
     });
 };
 
+// exports.postSignUp = (req, res, next) => {
+//   User.find({})
+//     .then(result => {
+//       console.log(result);
+//       const user = new User({
+//         name: "ahemeddd",
+//         email: "email@email.com",
+//         password: "bodakakak",
+//         likes: {}
+//       });
+//       return user.save();
+//     })
+//     .catch(err =>{
+//       console.log(err);
+      
+//     });
+// };
 exports.getVerify = (req, res, next) => {
   const token = req.params.token;
   User.findOne({ signUpToken: token })
@@ -256,25 +274,9 @@ exports.likesPost = (req, res, next) => {
   Movie.findById(movieId)
     .then(movie => {
       const likes = req.user.likes;
-      const filtedredLikes = likes.items.filter(item => {
-        return item.movieId.toString() !== movie._id.toString();
-      });
-      const updatedLikeItems = [...filtedredLikes];
-      updatedLikeItems.push({
-        movieId: movie._id,
-        name: movie.name,
-        poster: movie.image.original
-      });
-      // console.log(updatedLikeItems);
-      
-      const updatedLikes = {
-        items: updatedLikeItems
-      };
-
+      const updatedLikes = addToLikeMethod(movie, likes);
       User.findById(userId)
         .then(user => {
-          console.log(user.likes);
-          
           user.likes = updatedLikes;
           user.save();
           res.redirect("/likes");
