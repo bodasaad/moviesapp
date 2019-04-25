@@ -2,7 +2,6 @@
 <%- include('./includes/head.ejs') %>
 
 <link rel="stylesheet" href="/assets/css/main.css">
-<link rel="stylesheet" href="/assets/css/watchStyle.css">
 <link rel="stylesheet" href="/assets/css/likes.css">
 </head>
 <body>
@@ -24,7 +23,7 @@
             </div>
             <div class="horiz-slider-actions">
                 <a href="#"><i class="far fa-heart"></i></a>
-                <a href="#"><i class="fas fa-eye"></i></a>
+                <a href="/movies/<%= m.movieId %>"><i class="fas fa-eye"></i></a>
             </div>
             </div>
             <% }) %>
@@ -77,7 +76,6 @@
     crossorigin="anonymous"></script>
 <script type="text/javascript" src="/slick/slick.min.js"></script>
 <script src="/assets/js/plugin.js"></script>
-<script src="/assets/js/nav.js"></script>
 <script src="/assets/js/fontawesome-all.min.js"></script>
 </body>
 

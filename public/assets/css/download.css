@@ -28,6 +28,7 @@
 .edit{
   border-radius: var(--radius);
   z-index: 2;
+  padding: var(--scnd-padding) 0;
 
   border-bottom: 1px solid #fff
 }
@@ -110,7 +111,6 @@
   z-index: 2;
   position: relative;
   padding: var(--scnd-padding) 0;
-  background-color: rgba(0, 0, 0, 0.531);
   border-radius: var(--radius);
 }
 .share::before {
@@ -147,7 +147,13 @@
   border-radius: var(--radius);
   padding: 20px;
 }
+.donwload-details p{
+  margin-bottom: 8px;
+}
+.donwload-details p span{
+  text-decoration: underline
 
+}
 /* iPhone X, 6, 6+, 7, 7+, 8, 8+ ----------- */
 
 @media only screen and (min-width: 350px) and (max-width: 825px) {

@@ -92,7 +92,6 @@
     grid-template-columns: 1fr;
     width: 70%;
     margin: 35px auto;
-    padding: 25px;
     border-radius: var(--radius);
   }
   
@@ -102,7 +101,7 @@
     justify-content: space-between;
     align-items: center;
     margin-bottom: 10px;
-    padding: 10px;
+    padding: var(--scnd-padding);
     background-color: #ccc;
     border-radius: var(--radius);
     box-shadow: var(--shadow);
@@ -149,3 +148,11 @@
   #horiz-slider .horiz-slider-actions a:nth-child(2) {
     color: #a67046;
   }
+@media only screen and (min-width: 375px) and (max-width: 825px) and (orientation: portrait) {
+  #horiz-slider{
+    width: 100%;
+  }
+  #horiz-slider .horiz-slider-info h3 {
+    font-size: 20px;
+  }
+}

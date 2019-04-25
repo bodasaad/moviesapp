@@ -1,4 +1,4 @@
-module.exports = (movieId, movie ,likes) =>{
+module.exports = (movie ,likes) =>{
     const filtedredLikes = likes.items.filter(item => {
       return item.movieId.toString() !== movie._id.toString();
     });

@@ -1,6 +1,6 @@
 const Movie = require("../models/Movies");
 const User = require("../models/User");
-const addToLikeMethod = require('../middlewares/addToLike');
+const addToLikeMethod = require("../middlewares/addToLike");
 const bcrypt = require("bcryptjs");
 const nodeMailer = require("nodemailer");
 const sendgridTransport = require("nodemailer-sendgrid-transport");
@@ -65,9 +65,11 @@ exports.postSignUp = (req, res, next) => {
     });
   }
 
-  return User.find({ email: email })
+  return User.find()
     .then(result => {
+      console.log(result);
       if (result) {
+
         return res.status(422).render("signup", {
           title: "Sign Up",
           path: "/signup",
@@ -112,7 +114,7 @@ exports.postSignUp = (req, res, next) => {
             <p>Click <a href="http://localhost:3000/verfiy/${token}">HERE</a></p>
             `
             });
-            return res.redirect("/");
+            return res.redirect("/thanks");
           });
       });
     })
@@ -120,6 +122,7 @@ exports.postSignUp = (req, res, next) => {
       console.log(err);
     });
 };
+
 
 exports.getVerify = (req, res, next) => {
   const token = req.params.token;
@@ -253,9 +256,9 @@ exports.likesPost = (req, res, next) => {
   const movieId = req.body.movieId;
   const userId = req.user._id;
   Movie.findById(movieId)
-  .then(movie => {
-    const likes = req.user.likes;
-   const updatedLikes =addToLikeMethod(movieId, movie, likes);
+    .then(movie => {
+      const likes = req.user.likes;
+      const updatedLikes = addToLikeMethod(movie, likes);
       User.findById(userId)
         .then(user => {
           user.likes = updatedLikes;

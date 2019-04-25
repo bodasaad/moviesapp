@@ -8,7 +8,7 @@
         </ul> -->
     <% if (isAuthenticated) { %>
       <form action="/logout" method="post">
-        <button type="submit">Log Out</button>
+        <button class="btn" type="submit">Log Out</button>
       </form>
     <% } %>
     <div class="logo">
@@ -30,8 +30,35 @@
           <a href="/romance">Romance</a>
         </div>
       </li>
-        <li><a href="">Log in</a></li>
+      
+      <% if (!isAuthenticated) { %>
+        <li class="categories">     
+          <h4>Login</h4>
+          <div class="form-style">
+            <form action="/login" method="post">
+                <% if(errmsg) { %>
+                    <div class="msg msg-err">
+                        <p> <%= errmsg %> </p>
+                    </div>
+                    <% } %>
+                    <input type="email" name="email" placeholder="Your Email.">
+                    <input type="password" name="password" placeholder="Write Password.">
+                    <button class="btn main-btn" type="submit">login</button>
+              </form>
+          </div>
+        </li>
         <li><a href="/signup">Sign Up</a></li>
+        
+          
+        <% } %>  
+        <% if (isAuthenticated) { %>
+          <li><a href="/likes">Likes</a></li>
+          <li> 
+          <form action="/logout" method="post">
+            <button class="main-btn" type="submit">Log Out</button>
+          </form>
+        </li>
+        <% } %>
       </ul>
       <ul class="socialMedia">
         <li><a href="#"><i class="fab fa-facebook"></i></a></li>
