@@ -1,0 +1,131 @@
+*{
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-family: 'Montserrat', sans-serif;
+  }
+  :root{
+    
+    --main-margin: 35px;
+    --scnd-margin: 12px;
+    --main-padding: 35px;
+    --scnd-padding: 12px;
+  }
+
+  h1,h2,h3,h4,h5{
+      color: #fff;
+      text-align: center;
+  }
+  
+  /* Scrollbar Styling */
+  ::-webkit-scrollbar
+  {
+    width: 20px;
+    height: 0;
+  }
+  ::-webkit-scrollbar-track
+  {
+    background-color: #000;
+  }
+  ::-webkit-scrollbar-thumb
+  {
+    background: #222;
+  }
+  ::-webkit-scrollbar-thumb:hover
+  {
+    background-color: #333;
+  }
+
+  
+
+nav
+{
+  width: 100%;
+  height: 70px;
+  /* background-image: linear-gradient(to right, #EA6ACA, #374371, #2F416D); */
+  background-image: linear-gradient(to right, #4abdc5, #2498b2, #147399, #1c4f7a, #212d56);
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 9999;
+  -webkit-box-shadow: 0px 0px 8px 0px rgba(0,0,0,.75);
+  -moz-box-shadow: 0px 0px 8px 0px rgba(0,0,0,.75);
+  box-shadow: 0px 0px 8px 0px rgba(0,0,0,.75);
+  display: block;
+}
+
+#search
+{
+    display: flex;
+    justify-content: center;
+    margin: var(--main-margin)
+}
+#search input
+{
+    width: 100%;
+    height: 50px;
+    text-align: center;
+    border-radius: 50px;
+    -webkit-box-shadow: 0px 0px 8px 0px rgba(0,0,0,.75);
+    -moz-box-shadow: 0px 0px 8px 0px rgba(0,0,0,.75);
+    box-shadow: 0px 0px 8px 0px rgba(0,0,0,.75);
+}
+.player-card
+{
+  width: 80%;
+  margin: auto;
+}
+.player-card-video
+{
+  height: 350px;
+  width: 100%;
+  overflow: hidden;
+}
+.player-card-video img
+{
+  height: 600px;
+  width: 100%;
+}
+
+
+.player-card-details
+{
+  min-height: 200px;
+  background-image: linear-gradient(to right, #152553, #171717);
+  padding: 12px;
+  -webkit-box-shadow: 0px 0px 8px 0px rgba(0,0,0,.75);
+  -moz-box-shadow: 0px 0px 8px 0px rgba(0,0,0,.75);
+  box-shadow: 0px 0px 8px 0px rgba(0,0,0,.75);
+  color: #fff;
+  margin:12px 0;
+}
+.player-card-details p{color: #ccc;}
+.player-card-details p span
+{
+  font-weight: bold;
+  font-size: 1.4em;
+  color: #fff;
+  padding-right: 12px;
+  text-decoration: underline;
+}
+
+#advrtisement
+{
+    min-height: 60px;
+    width: 100%;
+    background-color: #eee;
+    padding: var(--scnd-padding);
+    border: 3px solid #ccc;
+    text-align: center;
+    -webkit-box-shadow: 0px 0px 8px 0px rgba(0,0,0,.75);
+    -moz-box-shadow: 0px 0px 8px 0px rgba(0,0,0,.75);
+    box-shadow: 0px 0px 8px 0px rgba(0,0,0,.75);
+}
+
+
+
+
+

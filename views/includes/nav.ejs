@@ -1,0 +1,46 @@
+<nav <% if ( path === '/' ){ %> style="display: none;" <% } %>>
+  <div class="container">
+    <!-- <p id="userName"></p>
+        <ul class="setting">
+          <li><a href="#">Profile <i class="fas fa-user"></i></a></li>
+          <li><a href="#">Setting <i class="fas fa-cogs"></i></a></li>
+          <li><a href="#">Logout <i class="fas fa-sign-out-alt"></i></a></li>
+        </ul> -->
+    <% if (isAuthenticated) { %>
+      <form action="/logout" method="post">
+        <button type="submit">Log Out</button>
+      </form>
+    <% } %>
+    <div class="logo">
+      <a href="/">Home Cinema</a>
+    </div>
+    <div class="sideMenuI">
+      <a id="sideNavIcon"><i class="fas fa-bars"></i></a>
+    </div>
+    <div id="sideMenu">
+      <div class="inner">
+      <h2>Home Cinema</h2>
+      <ul id="options">
+        <li class="categories">
+        <h4 class="active">Categories</h4>
+        <div class="categories-items">
+          <a href="/drama">Drama</a>
+          <a href="/action">Action</a>
+          <a href="/comedy">Comedy</a>
+          <a href="/romance">Romance</a>
+        </div>
+      </li>
+        <li><a href="">Log in</a></li>
+        <li><a href="/signup">Sign Up</a></li>
+      </ul>
+      <ul class="socialMedia">
+        <li><a href="#"><i class="fab fa-facebook"></i></a></li>
+        <li><a href="#"><i class="fab fa-twitter"></i></a></li>
+        <li><a href="#"><i class="fab fa-instagram"></i></a></li>
+        <li><a href="#"><i class="fab fa-google"></i></a></li>
+      </ul>
+      <a class="sideMenu_cls"> <i class="fas fa-sort-up"></i></a>
+    </div>
+    </div>
+  </div>
+</nav>

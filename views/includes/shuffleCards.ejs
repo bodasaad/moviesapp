@@ -1,0 +1,10 @@
+
+      <% if (movies.length > 0) { %>
+    <section id="shuffle-cards" class="lax">
+    <% heRt.forEach(m => { %>
+        <div class="shuffle-cards_item">
+            <img src="<%= m.image.original %>" alt="Movie Poster">
+        </div>
+    <% }) %>
+    </section>
+    <% } %>

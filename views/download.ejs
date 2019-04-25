@@ -1,0 +1,87 @@
+<!-- Includes Head Part -->
+<%- include('./includes/head.ejs') %>
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="/assets/css/download.css">
+</head>
+<body>
+    <div class="wrapper">
+
+        
+    <!-- Start Navigation -->  
+    <%- include('./includes/nav.ejs') %>
+    <!-- End Navigation -->
+    
+    <!-- Add Search Bar -->
+    <%- include('./includes/searchBar.ejs') %>
+    <!-- Add Search Bar -->
+
+    <div class="download" style="background-image: url('<%= movie.image.original %>');">
+         <div class="edit">
+        <div class="download-moviedetails">
+            <div class="poster">
+                <i class="fas fa-play"></i>
+                <img src="<%= movie.image.original %>" alt="">
+            </div>
+            <div class="title">
+                <h3><%= movie.name %></h3>
+            </div>
+            <div class="info">
+                <span class="rating"><%= movie.rating.average %></span>
+                <span class="qlty">HD</span>
+                <span class="genres"><%= movie.genres %></span>
+            </div>
+        </div>
+        <div class="download-actions">
+            <a href=""><i class="fas fa-download"></i></a>
+            <form class="likes" action="/addlikes" method="POST">
+                <input type="hidden" name="movieId" value="<%= movie._id %>">
+                <button type="submit"><i class="fas fa-heart"></i></button>
+            </form>
+        </div>
+        <div class="donwload-details">
+            <p><span>Premiered:</span>  <%= movie.premiered %> </p>
+            <p><span>Imdb:</span> <%= movie.externals.imdb %> </p>
+            <p><span>Productions:</span> <%= movie.network.name %> </p>
+            <p style="font-size:10px"><span>Story Summrize:</span> <%= movie.summary %></p>
+        </div>
+    </div>
+        <div class="share">
+
+            <h5>Do You like This Movies..! Share it with your friends now</h5>
+            <ul class="download-sub-menu">
+                <li>
+                    <a href="#">
+                        <i class="fab fa-facebook"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+
+    
+    <!-- Start Footer -->
+    <footer>
+        <div class="container">
+            <%- include('./includes/copyRight.ejs') %>
+        </div>
+    </footer>
+    <!-- End Footer -->
+
+</div>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="/slick/slick.min.js"></script>
+    <script src="/assets/js/plugin.js"></script>
+    <script src="/assets/js/fontawesome-all.min.js"></script>
+</body>

@@ -1,0 +1,186 @@
+<!-- Includes Head Part -->
+<%- include('./includes/head.ejs') %>
+
+<link rel="stylesheet" href="/assets/css/main.css">
+
+</head>
+
+<body>
+  <!-- Header Section -->
+  <div class="wrapper">
+
+
+    <header class="lax" data-lax-preset="zoomInOut-0.8">
+      <div id="header">
+        <div class="header-banner">
+          <p>Reach Your Movies Easy, No Ads and <span>Completely Free</span>.</p>
+        </div>
+
+        <div class="welcom">
+          <h1>Home Cinema</h1>
+            
+         
+          <ul class="socialMedia">
+            <li><a href="#"><i class="fab fa-facebook"></i></a></li>
+            <li><a href="#"><i class="fab fa-twitter"></i></a></li>
+            <li><a href="#"><i class="fab fa-instagram"></i></a></li>
+            <li><a href="#"><i class="fab fa-google"></i></a></li>
+          </ul>
+            <% if (!isAuthenticated) { %>
+            <div class="join">
+              <a href="/login">Login</a>
+              <a href="/signup">Become A Member.</a>
+            </div>
+            <% } else { %>
+            <div class="join">
+              <h3>Welcome <%= name %></h3>
+            </div>
+            <% } %>
+          </div>
+
+
+
+      </div>
+    </header>
+    <!-- End Header Section -->
+
+    <!-- Add Search Bar -->
+    <%- include('./includes/searchBar.ejs') %>
+    <!-- Add Search Bar -->
+
+    <!-- Start Navigation -->
+    <%- include('./includes/nav.ejs') %>
+    <!-- End Navigation -->
+
+    
+    <div id="card">
+      <% if (movies.length > 0) { %>
+
+      <% movies.forEach(function(m) { %>
+        
+      <a href="/movies/<%= m._id %>">
+      <div class="card-item lax">
+        <div class="card-poster">
+          <img src="<%= m.image.original %>" alt="Poster">
+        </div>
+          <span class="card-item_rating">IMDb: <%= m.rating.average %></span>
+      </div>
+    </a>
+      <% }) %>
+      <section class="pagination">
+          <% if(currentPage !== 1 && prevPage !== 1) {%>
+          <a href="?page=1" class="btn">1</a>
+          <% } %>
+          <% if(hasPrevPage) {%>
+          <a href="?page=<%= prevPage %>" class="btn"><%= prevPage %></a>
+          <% } %>
+          <a href="?page=<%= currentPage %>" class="btn active"><%= currentPage %></a>
+          <% if(hasNextPage) {%>
+          <a href="?page=<%= nextPage %>" class="btn"><%= nextPage %></a>
+          <% } %>
+          <% if(hasAfterNext) {%>
+            <a href="?page=<%= afterNext %>" class="btn"><%= afterNext %></a>
+            <% } %>
+          <% if(lastPage !== currentPage && nextPage !== lastPage) {%>
+  
+          ...<a href="?page=<%= lastPage %>" class="btn">Last Page</a>
+          <% } %>
+      </section>
+      <% } else { %>
+      <h1>No Movies Aivelable!</h1>
+
+      <% } %>
+    </div>
+
+    <!-- Start Slider -->
+    <!-- <%- include('./includes/slider.ejs') %> -->
+    <!-- Start Slider -->
+
+
+    <div class="wrapperSection">
+      <div class="sliders">
+        
+
+        <% if (movies.length > 0) { %>
+          <h5 style="text-align:left;">High Rated.</h5>
+        <div class="category-slider">
+          <% heRt.forEach(function(m) { %>
+        <div class="category-slider_item">
+            <img src="<%= m.image.original %>" alt="">
+            <p><%= m.name %></p>
+            <p><%= m.rating.average %></p>
+            <a href="/watch/<%= m._id %>"><i class="fas fa-eye"></i></a>
+            <a href="/watch/<%= m._id %>"><i class="far fa-heart"></i></a>
+        </div>
+        <% }) %>
+      </div>
+      <% } %>
+  
+</div>
+      <!-- <div class="quick-accsess-menu">
+        <h2>
+          Quick Accsess
+        </h2>
+        <h4 class="active">Categories</h4>
+        <div class="categories">
+          <a href="/drama">Drama</a>
+          <a href="/action">Action</a>
+          <a href="/comedy">Comedy</a>
+          <a href="/romance">Romance</a>
+        </div>
+        <h3 href="/">High Rated</h3>
+        <h4>Romance</h4>
+        <div class="action">
+
+        </div>
+  
+      </div> -->
+      
+    <!-- Start Suffle Cards -->
+    <%- include('./includes/shuffleCards.ejs') %>
+    <!-- Start Suffle Cards -->
+    </div>
+
+
+    
+
+
+    <!-- Start Footer -->
+    <footer>
+
+      <div id="contact">
+        <div class="form-style">
+          <p>Stay <span>Alert</span> For Latest Movies. <br> Sign Up </p>
+          <form action="/signup" method="post">
+            <input type="text" name="name" placeholder="Your Name.">
+            <input type="email" name="email" placeholder="Your Email.">
+            <input type="password" name="password" placeholder="Write Password.">
+            <input type="password" name="passwordConf" placeholder="Rewrite Password.">
+            <button type="submit">Sign Up</button>
+          </form>
+        </div>
+        <div class="photo">
+          <img class="img-responsive" src="/assets/images/unchecked.png" alt="Icon" srcset="">
+        </div>
+      </div>
+
+      <%- include('./includes/copyRight.ejs') %>
+    </footer>
+    <!-- End Footer -->
+
+
+  </div>
+  </script>
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js"
+    integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/lax.js" ></script>
+    
+
+  <script type="text/javascript" src="/slick/slick.min.js"></script>
+  <script src="/assets/js/plugin.js"></script>
+  <script src="/assets/js/nav.js"></script>
+  <script src="/assets/js/fontawesome-all.min.js"></script>
+</body>
+
+</html>
