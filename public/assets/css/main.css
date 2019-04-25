@@ -454,6 +454,7 @@ nav .logo a {
   top: -100%;
   transition: 0.3s all ease-in-out;
   display: grid;
+  background-color: rgba(0, 0, 0, 0.523);
 }
 #sideMenu .inner{
   border-bottom: 3px solid var(--main-color);
