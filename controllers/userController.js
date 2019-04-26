@@ -7,14 +7,6 @@ const sendgridTransport = require("nodemailer-sendgrid-transport");
 const crypto = require("crypto");
 const { validationResult } = require("express-validator/check");
 
-const transport = nodeMailer.createTransport(
-  sendgridTransport({
-    auth: {
-      api_key:
-        "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"
-    }
-  })
-);
 
 exports.getSignUp = (req, res, next) => {
   let message = req.flash("error");
@@ -48,7 +40,6 @@ exports.postSignUp = (req, res, next) => {
 
   if (!errors.isEmpty()) {
     console.log(errors.array());
-
     return res.status(422).render("signup", {
       path: "/signup",
       title: "Sign Up",
@@ -65,57 +56,56 @@ exports.postSignUp = (req, res, next) => {
     });
   }
 
-  User.find({email})
-    .then(result => {
-      console.log(result);
-      if (!result){
-
-        return res.status(422).render("signup", {
-          title: "Sign Up",
-          path: "/signup",
-          isAuthenticated: false,
-          errmsg:
-            "Email Exsist Did You Forgot Your Password!!! Click The Link Below",
-          SuccessMessage: null,
-          hasError: true,
-          oldInputs: {
-            name: name,
-            email: email,
-            password: password,
-            confirmPassword: confirmPassword
+  User.findOne({ email: email })
+    .then(userDoc => {
+      console.log(`User is:${userDoc}`);
+      if (!userDoc) {
+        return crypto.randomBytes(32, (err, buffer) => {
+          if (err) {
+            console.log(err);
+            return res.redirect("/signup");
           }
-        });
-      }
-      return crypto.randomBytes(32, (err, buffer) => {
-        if (err) {
-          console.log(err);
-          return res.redirect("/signup");
-        }
-        const token = buffer.toString("hex");
-        bcrypt
-          .hash(password, 12)
-          .then(hashedpassword => {
-            const user = new User({
-              name: name,
-              email: email,
-              password: hashedpassword,
-              likes: { item: [] },
-              signUpToken: token
-            });
-            return user.save();
-          })
-          .then(result => {
-            transport.sendMail({
-              to: email,
-              from: "HomeCinema-Team@mail.com",
-              subject: "Successfully Signed Up...",
-              html: `
+          const token = buffer.toString("hex");
+          bcrypt
+            .hash(password, 12)
+            .then(hashedpassword => {
+              const user = new User({
+                name: name,
+                email: email,
+                password: hashedpassword,
+                likes: { item: [] },
+                signUpToken: token
+              });
+              return user.save();
+            })
+            .then(result => {
+              transport.sendMail({
+                to: email,
+                from: "HomeCinema-Team@mail.com",
+                subject: "Successfully Signed Up...",
+                html: `
             <p>We glad to be one of our commuinty one last step just click the link below to verify your account now</p>
             <p>Click <a href="http://localhost:3000/verfiy/${token}">HERE</a></p>
             `
+              });
+              return res.redirect("/thanks");
             });
-            return res.redirect("/thanks");
-          });
+        });
+      }
+      return res.status(422).render("signup", {
+        title: "Sign Up",
+        path: "/emailExsist",
+        isAuthenticated: false,
+        errmsg:
+          "Email Exsist Did You Forgot Your Password!!! Click The Link Below",
+        SuccessMessage: null,
+        hasError: true,
+        oldInputs: {
+          name: name,
+          email: email,
+          password: password,
+          confirmPassword: confirmPassword
+        }
       });
     })
     .catch(err => {
@@ -179,14 +169,14 @@ exports.postVerify = (req, res, next) => {
     });
 };
 
-exports.thanks = (req, res, next) =>{
+exports.thanks = (req, res, next) => {
   res.render("thanks", {
     path: "/thanks",
     title: "thanks",
     errmsg: null,
     SuccessMessage: "Successfully Signed Up , Please Verify Your Email now"
   });
-}
+};
 
 exports.getLogin = (req, res, next) => {
   const isLoggedIn = req.session.isLoggedIn;
@@ -280,5 +270,4 @@ exports.likesPost = (req, res, next) => {
     .catch(err => {
       console.log(err);
     });
- 
 };
