@@ -33,6 +33,7 @@ exports.getIndex = (req, res, next) => {
       res.render("index", {
         heRt: heRt,
         movies: movies,
+        errmsg: null,
         path: "/",
         title: "Home Cinema: Brings Cinema's Movies To Your Home ",
         currentPage: pageNum,
@@ -59,6 +60,7 @@ exports.searchPost = (req, res, next) => {
     .then(movie => {
       res.render("download", {
         movie: movie,
+        errmsg: null,
         path: "/watch/:movieId",
         title: "Search Result"
       });
@@ -78,6 +80,7 @@ exports.getMovie = (req, res, next) => {
       
       res.render("download", {
         movie: movie,
+        errmsg:null,
         path: "/movies/:movieId",
         title: `Watch:  ${movie.name}`
       });

@@ -1,6 +1,6 @@
 const Movie = require("../models/Movies");
 const User = require("../models/User");
-// const addToLikeMethod = require("../middlewares/addToLike");
+const addToLikeMethod = require("../middlewares/addToLike");
 const bcrypt = require("bcryptjs");
 const nodeMailer = require("nodemailer");
 const sendgridTransport = require("nodemailer-sendgrid-transport");
@@ -65,10 +65,10 @@ exports.postSignUp = (req, res, next) => {
     });
   }
 
-  User.find({email: email})
+  User.find({email})
     .then(result => {
-      if (result) {
-        console.log(result);
+      console.log(result);
+      if (!result){
 
         return res.status(422).render("signup", {
           title: "Sign Up",
@@ -123,23 +123,6 @@ exports.postSignUp = (req, res, next) => {
     });
 };
 
-// exports.postSignUp = (req, res, next) => {
-//   User.find({})
-//     .then(result => {
-//       console.log(result);
-//       const user = new User({
-//         name: "ahemeddd",
-//         email: "email@email.com",
-//         password: "bodakakak",
-//         likes: {}
-//       });
-//       return user.save();
-//     })
-//     .catch(err =>{
-//       console.log(err);
-      
-//     });
-// };
 exports.getVerify = (req, res, next) => {
   const token = req.params.token;
   User.findOne({ signUpToken: token })
@@ -195,6 +178,15 @@ exports.postVerify = (req, res, next) => {
       console.log(err);
     });
 };
+
+exports.thanks = (req, res, next) =>{
+  res.render("thanks", {
+    path: "/thanks",
+    title: "thanks",
+    errmsg: null,
+    SuccessMessage: "Successfully Signed Up , Please Verify Your Email now"
+  });
+}
 
 exports.getLogin = (req, res, next) => {
   const isLoggedIn = req.session.isLoggedIn;
@@ -288,36 +280,5 @@ exports.likesPost = (req, res, next) => {
     .catch(err => {
       console.log(err);
     });
-  // Movie.findById({movieId})
-  //   .then(movie => {
-
-  //     const filtedredLikes = req.user.likes.items.filter(item => {
-  //       return item.moveiId.toString !== movie._id.toString;
-  //     });
-
-  //     if (filtedredLikes) {
-  //       const updatedLikeItems = [...filtedredLikes];
-  //       updatedLikeItems.push({
-  //         moveiId: new mongodb.ObjectID(),
-  //         name: movie.name,
-  //       });
-  //       const updatedLikes = {
-  //         items: updatedLikeItems
-  //       };
-
-  //       User.findOne({_id: req.user._id })
-  //       .then(user => {
-  //         user.likes = updatedLikes;
-  //         res.redirect("/likes");
-  //         return user.save();
-  //       })
-  //       .catch(err => {
-  //         console.log(err);
-  //       });
-  //     }
-
-  //   })
-  //   .catch(err => {
-  //     console.log(err);
-  //   });
+ 
 };

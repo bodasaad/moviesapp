@@ -1,32 +1,46 @@
-.auth-form{
-    height: 500px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-image: url('../images/giphy.gif')
+.auth-form {
+  height: 75vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-image: url("../images/giphy.gif");
 }
-.auth-form h1{
-    color: #fff;
-    text-align: center;
-    font-size: 33px;
-    margin-bottom: 15px;
+.auth-form .msg p{
+  font-size: 14px;
+  margin: 0;
+}
+.auth-form p {
+  color: #fff;
+  text-align: center;
+  font-size: 33px;
+  margin-bottom: 15px;
 }
 
-.auth-form form{
-    width: 40%;
-    margin: auto;
+.auth-form form {
+  width: 40%;
+  margin: auto;
+  padding: var(--main-padding) 0;
 }
 
+.auth-form input {
+  display: block;
+  height: 80px;
+  width: 100%;
+  padding: var(--scnd-padding);
+  margin-bottom: var(--scnd-margin);
+  border-radius: var(--radius);
+  text-align: center;
+  font-size: 1.2em;
+  background-color: transparent;
+  color: #fff;
+  border-bottom: 2px solid var(--main-color);
+}
+@media only screen and (min-width: 375px) and (max-width: 825px) and (orientation: portrait) {
+  .auth-form form {
+    width: 90%;
+  }
+  
 .auth-form input{
-    display: block;
-    height: 50px;
-    width: 100%;
-    padding: var(--scnd-padding);
-    margin-bottom: var(--scnd-margin);
-    border-radius: var(--radius);
-    text-align: center;
-    font-size: 1.2em;
-    background-color: transparent;
-    color: #fff;
-    border-bottom: 2px solid var(--main-color)
+    height: 60px;
+}
 }

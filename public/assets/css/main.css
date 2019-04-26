@@ -1,4 +1,4 @@
-*{
+* {
   box-sizing: border-box;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
@@ -23,7 +23,30 @@ body {
   background-repeat: no-repeat;
   background-size: cover;
   padding-top: 50px;
-  margin: 0
+  margin: 0;
+  transition: .5s all ease-in-out
+}
+.btn{
+  padding: var(--scnd-padding) 0;
+  border-radius: var(--radius);
+  color: #fff;
+  cursor: pointer;
+  width: 100%;
+  background-color: transparent;
+}
+.main-btn {
+    background: var(--main-color); /* fallback for old browsers */
+    background: -webkit-linear-gradient(
+      to left,
+      #060519,
+      var(--main-color)
+    ); /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(
+      to left,
+      #060519,
+      var(--main-color)
+    ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
 }
 
 /* Scrollbar Styling */
@@ -48,16 +71,16 @@ input:focus {
 ul {
   list-style: none;
 }
-a{
+a {
   text-decoration: none;
 }
-.loader{
+.loader {
   height: 100vh;
   width: 100%;
   background-color: #00f;
   display: none;
 }
-.activeted{
+.activeted {
   display: block;
 }
 .wrapper {
@@ -65,22 +88,22 @@ a{
   margin: auto;
   background-color: #000;
 }
-.msg{
+.msg {
   width: 100%;
   background-color: ccc;
   margin-bottom: 10px;
   padding: 10px;
   border-radius: var(--radius);
 }
-.msg p{
+.msg p {
   color: #ccc;
   text-align: center;
 }
-.msg-err{
+.msg-err {
   border: 1px solid red;
-  background-color: #ffff0013
+  background-color: #ffff0013;
 }
-.msg-success{
+.msg-success {
   border: 1px solid green;
 }
 /*Styling #header*/
@@ -189,6 +212,7 @@ header {
 #header .join {
   display: flex;
   justify-content: center;
+  color: #eee;
 }
 #header .join a {
   font-weight: bold;
@@ -213,13 +237,14 @@ header {
   background-color: #7a0000;
 } */
 .form-style {
-  width: 100%;
+  width: 80%;
+  margin: auto;
 }
 .form-style input {
   width: 100%;
-  height: 50px;
+  height: 45px;
   text-align: center;
-  margin: var(--scnd-margin) 0;
+  margin: 10px 0;
   border-radius: var(--radius);
 }
 #search {
@@ -454,8 +479,9 @@ nav .logo a {
   top: -100%;
   transition: 0.3s all ease-in-out;
   display: grid;
+  background-color: rgba(0, 0, 0, 0.523);
 }
-#sideMenu .inner{
+#sideMenu .inner {
   border-bottom: 3px solid var(--main-color);
   height: 80%;
   background: #000;
@@ -465,7 +491,7 @@ nav .logo a {
 
 #sideMenu h2 {
   font-weight: bolder;
-  font-size: 3em;
+  font-size: 2.5em;
   text-align: center;
   color: #fff;
 }
@@ -490,6 +516,7 @@ nav .logo a {
 
 #sideMenu #options li a {
   color: #e6e6e6;
+  padding: 8px 0;
 }
 
 .categories {
@@ -498,10 +525,11 @@ nav .logo a {
   background-color: #111;
 }
 .categories div {
-  height: 120px;
+  
+  margin-top: var(--scnd-margin);
   display: none;
 }
-.categories h4{
+.categories h4 {
   cursor: pointer;
   margin: 0;
   font-size: 1.4em;
@@ -518,8 +546,6 @@ nav .logo a {
   font-weight: bold;
   border-radius: var(--radius);
 }
-
-
 
 #card {
   display: grid;
@@ -571,7 +597,7 @@ nav .logo a {
   75% {
     transform: rotateZ(3deg);
   }
-  
+
   75% {
     transform: rotateZ(1deg);
   }
@@ -593,9 +619,11 @@ nav .logo a {
   text-align: center;
   grid-column: 1/3;
   color: #fff;
+  margin-top: var(--scnd-margin)
 }
 .pagination a {
   color: #fff;
+  padding: 5px 15px;
 }
 .pagination a.active {
   background-color: var(--main-color);
@@ -694,7 +722,6 @@ nav .logo a {
   transform: rotateZ(-5deg);
 }
 
-
 #slide-movies {
   width: 100%;
   height: 600px;
@@ -764,7 +791,7 @@ nav .logo a {
 }
 
 /* Start Footer */
-footer{
+footer {
   display: grid;
   grid-template-columns: 1fr;
   grid-gap: 2em;
@@ -788,24 +815,6 @@ footer{
   align-self: center;
 }
 
-#contact form button {
-  background: var(--main-color); /* fallback for old browsers */
-  background: -webkit-linear-gradient(
-    to left,
-    #060519,
-    var(--main-color)
-  ); /* Chrome 10-25, Safari 5.1-6 */
-  background: linear-gradient(
-    to left,
-    #060519,
-    var(--main-color)
-  ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-  padding: var(--scnd-padding) 0;
-  width: 100%;
-  border-radius: var(--radius);
-  color: #fff;
-  cursor: pointer;
-}
 #contact img {
   height: 75%;
   width: 100%;
@@ -830,6 +839,21 @@ footer{
 #copyright ul li a {
   color: #fff;
 }
+
+
+.thanks{
+  color: #fff;
+  font-size: 1.5em;
+  text-align: center;
+  padding: var(--main-padding);
+  margin: var(--scnd-margin) 0;
+  height: 70vh;
+}
+.thanks img{
+  height: 300px;
+  margin: auto;
+}
+
 
 /* iPhone 4, 5 -----------
 
@@ -921,7 +945,7 @@ footer{
     margin: 0;
   }
   .wrapper {
-    width: 95%;
+    width: 98%;
   }
 
   .header-banner {
@@ -1022,5 +1046,11 @@ footer{
   #contact form button {
     width: 100%;
     text-align: center;
+  }
+
+  .thanks img{
+    height: 150px;
+    width: 100%;
+    margin: auto;
   }
 }

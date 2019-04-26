@@ -2,6 +2,8 @@ const path = require("path");
 
 const express = require("express");
 
+const isAuth = require('../middlewares/isAuth');
+
 const { check, body } = require("express-validator/check");
 
 const userController = require("../controllers/userController");
@@ -38,14 +40,16 @@ router.get("/verfiy/:token", userController.getVerify)
 
 router.post('/verify', userController.postVerify)
 
+router.get("/thanks", userController.thanks);
+
 router.get("/login", userController.getLogin);
 
 router.post("/login", userController.postLogin);
 
 router.post("/logout", userController.postLogout);
 
-router.post("/addlikes", userController.likesPost);
+router.post("/addlikes",isAuth,  userController.likesPost);
 
-router.get("/likes", userController.likesGet);
+router.get("/likes", isAuth, userController.likesGet);
 
 module.exports = router;

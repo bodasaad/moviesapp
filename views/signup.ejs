@@ -13,7 +13,7 @@
      
         <div class="auth-form auth-form_signup" >
             <form action="/signup" method="post">
-                <h1>Sign Up</h1>
+                
                 <% if(errmsg) { %>
                     <div class="msg msg-err">
                         <p> <%= errmsg %> </p>
@@ -24,11 +24,12 @@
                             <p> <%= SuccessMessage %> </p>
                         </div>
                         <% } %>
+                        <p>Sign Up</p>
                     <input type="text" name="name" placeholder="Your Name." value="<% if (hasError) { %><%= oldInputs.name %><% } %>">
                     <input type="email" name="email" placeholder="Your Email." value="<% if (hasError) { %><%= oldInputs.email %><% } %>">
                     <input type="password" name="password" placeholder="Write Password." value="<% if (hasError) { %><%= oldInputs.password %><% } %>">
                     <input type="password" name="confirmPassword" placeholder="Rewrite Password." value="<% if (hasError) { %><%= oldInputs.confirmPassword %><% } %>">
-                    <button type="submit">Sign Up</button>
+                    <button class="btn main-btn" type="submit">Sign Up</button>
                 </form>
         </div>
 
