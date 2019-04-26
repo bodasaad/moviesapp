@@ -7,6 +7,14 @@ const sendgridTransport = require("nodemailer-sendgrid-transport");
 const crypto = require("crypto");
 const { validationResult } = require("express-validator/check");
 
+const transport = nodeMailer.createTransport(
+  sendgridTransport({
+    auth: {
+      api_key:
+        "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"
+    }
+  })
+);
 
 exports.getSignUp = (req, res, next) => {
   let message = req.flash("error");
@@ -246,7 +254,7 @@ exports.likesGet = (req, res, next) => {
   res.render("likes", {
     likes: likes,
     path: "/likes",
-    title: `Your likes`
+    title: `Movies You liked`
   });
 };
 
@@ -269,5 +277,27 @@ exports.likesPost = (req, res, next) => {
     })
     .catch(err => {
       console.log(err);
+    });
+};
+
+exports.unlikePost = (req, res, next) => {
+  const movieId = req.params.movieId;
+  const filteredMovies = req.user.likes.items.filter(item => {
+    return item.movieId.toString() !== movieId.toString();
+  });
+  const updatedLikeItems = [...filteredMovies];
+  const updatedLikes = {
+    items: updatedLikeItems
+  };
+  User.findById(req.user._id)
+    .then(user => {
+      user.likes = updatedLikes
+      user.save()
+      return res.json({message: 'Success'})
+
+    })
+    .catch(err =>{
+      console.log(err);
+      
     });
 };

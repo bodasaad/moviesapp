@@ -480,6 +480,7 @@ nav .logo a {
   transition: 0.3s all ease-in-out;
   display: grid;
   background-color: rgba(0, 0, 0, 0.523);
+  display: none;
 }
 #sideMenu .inner {
   border-bottom: 3px solid var(--main-color);
@@ -947,7 +948,9 @@ footer {
   .wrapper {
     width: 98%;
   }
-
+  #sideMenu{
+    display: block;
+  }
   .header-banner {
     height: 70px;
     margin: var(--scnd-margin) 0;

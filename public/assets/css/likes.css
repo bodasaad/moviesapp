@@ -1,101 +1,18 @@
-/* 
-
-#likes
-{
-    max-height: 500px;
-    text-align: center;
-    overflow: scroll;
-    background-color: rgba(247, 245, 245, 0.2);
-    padding: 20px 50px;
-    margin-top: 70px;
-    border-radius: 20px;
-}
-#like h1
-{
-    font-size: 3em;
-    margin: 0;
-    padding: 0;
-}
-#likes .movie
-{
-    height: 180px;
-    border-radius: 20px;
-    background-color: #2E3466;
-    margin: 15px 0;
-    -webkit-box-shadow: 0px 0px 8px 0px rgba(0,0,0,.75);
-    -moz-box-shadow: 0px 0px 8px 0px rgba(0,0,0,.75);
-    box-shadow: 0px 0px 8px 0px rgba(0,0,0,.75);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-#likes .movie .moviePoster
-{
-    height: 100%;
-    width: 25%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-#likes .movie .moviePoster img
-{
-    height: 50%;
-    width: 50%;
-    -webkit-box-shadow: 0px 0px 8px 0px rgba(0,0,0,.75);
-    -moz-box-shadow: 0px 0px 8px 0px rgba(0,0,0,.75);
-    box-shadow: 0px 0px 8px 0px rgba(0,0,0,.75);
-
-  }
-
-#likes .movie .movieDetails
-{
-    width: 50%;
-    height: 100%;
-    overflow: scroll;
-    padding: 0 20px;
-}
-#likes .movie .movieDetails h3{
-    margin: 20px 0;
-    color: #fff;
-    font-weight: bold;
-}
-#likes .movie .movieDetails p{
-    color: #eee;
-}
-#likes .movie .actions{
-    width: 20%;
-}
-#likes .movie .actions a{
-    color: #fff;
-    display: block;
-    margin: 10px 0;
-    padding: 10px;
-    border-width: 2px;
-    border-style: solid;
-    border-image: 
-      linear-gradient(
-        to bottom,
-        white, 
-        rgba(0, 0, 0, .5)
-      ) 10 100%;
-      transition:.3s;
-}
-
- #likes .movie .actions a:first-of-type{ background-color: rgba(213, 152, 82, .6);}
-#likes .movie .actions a:first-of-type:hover{ background-color: rgba(213, 152, 82, .8);}
-#likes .movie .actions a:last-of-type{ background-color: rgba(98, 183, 122, .6);} 
-#likes .movie .actions a:last-of-type:hover{ background-color: rgba(98, 183, 122, .8);} */
 
 #horiz-slider {
     -webkit-z-play: grid;
     grid-template-columns: 1fr;
     width: 70%;
     margin: 35px auto;
-    height:100vh;
+    height:66vh;
     border-radius: var(--radius);
+    overflow: scroll;
   }
-  
+  h1{
+    color: #fff;
+    color:20px;
+    text-align: center;
+  }
   #horiz-slider .horiz-slider-item {
     height: 150px;
     display: flex;

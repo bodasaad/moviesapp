@@ -12,9 +12,9 @@
         <!-- End Navigation -->
 
 
+        <h1>Likes</h1>
         <% if (likes.length > 0) { %>
         <div id="horiz-slider">
-            
         <% likes.forEach(m => { %>
             <div class="horiz-slider-item">
             <img src="<%= m.poster %>" alt="Thumbnil" srcset="">
@@ -22,7 +22,8 @@
                 <h3 class="horiz-slider-title"><%= m.name %></h3>
             </div>
             <div class="horiz-slider-actions">
-                <a href="#"><i class="far fa-heart"></i></a>
+                <a onclick="unlike(this)"><i class="far fa-heart"></i></a>
+                <input type="hidden" name="movieId" value="<%= m.movieId %>">
                 <a href="/movies/<%= m.movieId %>"><i class="fas fa-eye"></i></a>
             </div>
             </div>
@@ -32,42 +33,12 @@
         </div>
         <% } %>
 
-<!-- <div id="likes" class="container">
-    <h1>Likes</h1>
-    <% if (likes.length > 0) { %>
-    <div class="row">
-        <% likes.forEach(m => { %>
-        <div class="movie col-xl-8 col-md-8 col-sm-12">
-            <div class="moviePoster">
-                <img src="<%= m.poster %>" alt="Poster">
-            </div>
-            <div class="movieDetails">
-                <h3 class="movieTitle"><%= m.name %></h3>
-                <p><%= m.summary %></p>
-            </div>
-            <div class="actions">
-                <a href="/download/<%= m.moveiId %>">Download</a>
-                <a href="/watch/<%= m.moveiId %>">Watch</a>
-            </div>
-        </div>
-
-        <% }) %>
-    </div>
-    <% } else { %>
-    <h1>No Movies Aivelable!</h1>
-    <% } %>
-</div> -->
-
-        <!-- Start Footer -->
-        <footer>
-                <div class="container">
-                    <%- include('./includes/copyRight.ejs') %>
-                </div>
-            </footer>
-        <!-- End Footer -->
-
 </div>
-
+    <!-- Start Footer -->
+    <footer>
+        <%- include('./includes/copyRight.ejs') %>
+</footer>
+<!-- End Footer -->
 </script>
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"
     integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -80,3 +51,5 @@
 </body>
 
 </html>
+
+

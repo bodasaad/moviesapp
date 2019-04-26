@@ -50,6 +50,8 @@ router.post("/logout", userController.postLogout);
 
 router.post("/addlikes",isAuth,  userController.likesPost);
 
+router.post("/movie/:movieId",isAuth,  userController.unlikePost);
+
 router.get("/likes", isAuth, userController.likesGet);
 
 module.exports = router;

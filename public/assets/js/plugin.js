@@ -13,9 +13,9 @@ window.onload = function() {
   window.requestAnimationFrame(updateLax);
 };
 
-$(window).on('load', ()=> {
-  $('.loader').addClass('activeted')
-})
+$(window).on("load", () => {
+  $(".loader").addClass("activeted");
+});
 $(document).ready(function() {
   "use strict";
 
@@ -35,13 +35,9 @@ $(document).ready(function() {
       .slideUp(500);
   });
 
-
-  
   // Slick Sliders
 
   $(document).ready(function() {
-
-
     $(".slider").slick({
       autoplay: true,
       autoplaySpeed: 3500,
@@ -57,15 +53,14 @@ $(document).ready(function() {
       arrows: false,
       adaptiveHeight: true,
       autoplay: true,
-      autoplaySpeed:2000,
+      autoplaySpeed: 2000,
       appendDots: $(".category-slider")
     });
 
-    $('.sideMenu_cls').on('click', () =>{
-      $('#sideMenu').css({top: '-100%'})
-    })
+    $(".sideMenu_cls").on("click", () => {
+      $("#sideMenu").css({ top: "-100%" });
+    });
   });
-
 
   // Shuffle Cards
   var zIndex = 0;
@@ -91,11 +86,11 @@ $(document).ready(function() {
       );
   });
 
-  $('#sideNavIcon').on('click', function(){
-    $('#sideMenu').css({top: '0'})
-  })
+  $("#sideNavIcon").on("click", function() {
+    $("#sideMenu").css({ top: "0" });
+  });
   $("#sideMenu").click(function() {
-    $(this).css({top: '-100%'})
+    $(this).css({ top: "-100%" });
   });
   $("#sideMenu .inner").click(function(e) {
     e.stopPropagation();
@@ -120,3 +115,27 @@ function myFunction() {
   let x = "Total Widht: " + screen.width + "px";
   document.getElementById("demo").innerHTML = x;
 }
+
+const unlike = link => {
+  const movieId = link.parentNode.querySelector("[name=movieId]").value;
+  fetch(`/movie/${movieId}`, {
+    method: "POST"
+  })
+    .then(res => {
+      if (res.status !== 200 && res.status !== 201) {
+        throw new Error("Changing Quantinty failed...");
+      } else {
+        return res.json();
+      }
+    })
+    .then(resData => {
+      $(link)
+      .parents(".horiz-slider-item")
+      .fadeOut();
+      console.log(`resData is ${resData}`);
+    })
+    .catch(err =>{
+      console.log(err);
+      
+    });
+};
