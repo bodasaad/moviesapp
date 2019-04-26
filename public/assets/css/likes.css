@@ -92,6 +92,7 @@
     grid-template-columns: 1fr;
     width: 70%;
     margin: 35px auto;
+    height:100vh;
     border-radius: var(--radius);
   }
   

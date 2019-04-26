@@ -65,10 +65,10 @@ exports.postSignUp = (req, res, next) => {
     });
   }
 
-  return User.find()
+  User.find({email})
     .then(result => {
       console.log(result);
-      if (result) {
+      if (!result){
 
         return res.status(422).render("signup", {
           title: "Sign Up",
@@ -179,6 +179,15 @@ exports.postVerify = (req, res, next) => {
       console.log(err);
     });
 };
+
+exports.thanks = (req, res, next) =>{
+  res.render("thanks", {
+    path: "/thanks",
+    title: "thanks",
+    errmsg: null,
+    SuccessMessage: "Successfully Signed Up , Please Verify Your Email now"
+  });
+}
 
 exports.getLogin = (req, res, next) => {
   const isLoggedIn = req.session.isLoggedIn;

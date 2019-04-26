@@ -840,6 +840,21 @@ footer {
   color: #fff;
 }
 
+
+.thanks{
+  color: #fff;
+  font-size: 1.5em;
+  text-align: center;
+  padding: var(--main-padding);
+  margin: var(--scnd-margin) 0;
+  height: 70vh;
+}
+.thanks img{
+  height: 300px;
+  margin: auto;
+}
+
+
 /* iPhone 4, 5 -----------
 
 @media only screen and (min-width: 320px) and (max-width: 568px) and (orientation: landscape) {
@@ -1031,5 +1046,11 @@ footer {
   #contact form button {
     width: 100%;
     text-align: center;
+  }
+
+  .thanks img{
+    height: 150px;
+    width: 100%;
+    margin: auto;
   }
 }

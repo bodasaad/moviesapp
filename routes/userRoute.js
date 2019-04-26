@@ -40,6 +40,8 @@ router.get("/verfiy/:token", userController.getVerify)
 
 router.post('/verify', userController.postVerify)
 
+router.get("/thanks", userController.thanks);
+
 router.get("/login", userController.getLogin);
 
 router.post("/login", userController.postLogin);
