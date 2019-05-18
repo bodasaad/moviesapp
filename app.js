@@ -17,7 +17,7 @@ const compression = require("compression");
 const app = express();
 
 const MONGODBURI =
-  `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO-PASSWORD}@onlineshop-zsiuv.mongodb.net/${process.env.MONGO_DATABASE}?retryWrites=true`;
+  `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASSWORD}@onlineshop-zsiuv.mongodb.net/${process.env.MONGO_DATABASE}?retryWrites=true`;
 const store = new MongoDbStore({
   uri:
   MONGODBURI,

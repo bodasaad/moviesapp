@@ -27,7 +27,7 @@
   "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "set NODE_ENV=prouction&& set MONGO_USER=abdelrhman&& set MONGO_PASSWORD=ingodwetrust&& set MONGO_DEFUALT_DATABASE=OnlineShop&& set PORT=3000&& node app.js",
+    "start": "set NODE_ENV=prouction&& set MONGO_USER=abdelrhman&& set MONGO_PASSWORD=ingodwetrust&& set MONGO_DATABASE=moviesApp&& set PORT=3000&& node app.js",
     "start-server": "node app.js",
     "start:dev": "nodemon app.js"
   },

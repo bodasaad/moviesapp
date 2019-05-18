@@ -2,7 +2,7 @@
     "env": {
           "MONGO_USER": "abdelrhman",
           "MONGO_PASSWORD":"ingodwetrust",
-          "MONGO_DEFUALT_DATABASE":"moviesApp",
+          "MONGO_DATABASE":"moviesApp",
           "NODE_ENV": "production"
     }
   }
