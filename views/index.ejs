@@ -61,7 +61,7 @@
       <a href="/movies/<%= m._id %>">
       <div class="card-item lax">
         <div class="card-poster">
-          <img src="<%= m.image.original %>" alt="Poster">
+          <img src="<%= m.image.medium %>" alt="Poster" srcset="<%= m.image.medium %>>
         </div>
           <span class="card-item_rating">IMDb: <%= m.rating.average %></span>
       </div>
@@ -109,7 +109,7 @@
         <div class="category-slider">
           <% heRt.forEach(function(m) { %>
           <div class="category-slider_item">
-            <img src="<%= m.image.original %>" alt="">
+            <img src="<%= m.image.medium %>" alt="">
             <p><%= m.name %></p>
               <p class="category-slider_item_rating" ><%= m.rating.average %></p>
               <a href="/watch/<%= m._id %>"><i class="far fa-eye"></i></a>
@@ -123,7 +123,7 @@
       <div class="category-slider">
         <% heRt.forEach(function(m) { %>
         <div class="category-slider_item">
-            <img src="<%= m.image.original %>" alt="">
+            <img src="<%= m.image.medium %>" alt="">
             <p><%= m.name %></p>
             <p class="category-slider_item_rating"><%= m.rating.average %></p>
             <a href="/watch/<%= m._id %>"><i class="far fa-eye"></i></a>
