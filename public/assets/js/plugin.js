@@ -96,8 +96,7 @@ $(document).ready(function() {
   $("#sideMenu .inner").click(function(e) {
     e.stopPropagation();
   });
-  
-});
+
 
 
 
@@ -223,3 +222,6 @@ const unlike = link => {
       console.log(err);
     });
 };
+
+  
+}); 

@@ -15,12 +15,12 @@
     <%- include('./includes/searchBar.ejs') %>
     <!-- Add Search Bar -->
 
-    <div class="download" style="background-image: url('<%= movie.image.original %>');">
+    <div class="download" style="background-image: url('<%= movie.image.medium %>');">
          <div class="edit">
         <div class="download-moviedetails">
             <div class="poster">
                 <i class="fas fa-play"></i>
-                <img src="<%= movie.image.original %>" alt="">
+                <img src="<%= movie.image.medium %>" alt="">
             </div>
             <div class="title">
                 <h3><%= movie.name %></h3>

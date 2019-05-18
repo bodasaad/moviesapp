@@ -10,8 +10,8 @@ const mongoConnect = require("./util/database");
 const User = require("./models/User/User");
 const Movie = require("./models/Movies");
 const flash = require("connect-flash");
-const helmet = require("helmet");
-const compression = require("compression");
+// const helmet = require("helmet");
+// const compression = require("compression");
 
 
 const app = express();
@@ -40,11 +40,9 @@ app.use(
 const moviesRoutes = require("./routes/moviesRoute");
 const userRoutes = require("./routes/userRoute");
 
-app.use(helmet());
-app.use(compression());
 
 app.use(async (req, res, next) => {
-  const hert = await Movie.find({ weight: { $gt: 85 } });
+  const hert = await Movie.find({ 'rating.average': { $gt: 8.8 } });
   res.locals.isAuthenticated = req.session.isLoggedIn;
   res.locals.heRt = hert;
   next();
