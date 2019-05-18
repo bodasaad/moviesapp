@@ -1,6 +1,6 @@
 const Movie = require("../models/Movies");
-const User = require("../models/User");
-const addToLikeMethod = require("../middlewares/addToLike");
+const User = require("../models/User/User");
+const LikeMethods = require("../models/User/likeMethods");
 const bcrypt = require("bcryptjs");
 const nodeMailer = require("nodemailer");
 const sendgridTransport = require("nodemailer-sendgrid-transport");
@@ -260,12 +260,11 @@ exports.likesGet = (req, res, next) => {
 
 exports.likesPost = (req, res, next) => {
   const movieId = req.body.movieId;
-  const userId = req.user._id;
+  const likes = req.user.likes;
   Movie.findById(movieId)
     .then(movie => {
-      const likes = req.user.likes;
-      const updatedLikes = addToLikeMethod(movie, likes);
-      User.findById(userId)
+      const updatedLikes = LikeMethods.like(movie, likes);
+      User.findById(req.user._id)
         .then(user => {
           user.likes = updatedLikes;
           user.save();
@@ -282,22 +281,15 @@ exports.likesPost = (req, res, next) => {
 
 exports.unlikePost = (req, res, next) => {
   const movieId = req.params.movieId;
-  const filteredMovies = req.user.likes.items.filter(item => {
-    return item.movieId.toString() !== movieId.toString();
-  });
-  const updatedLikeItems = [...filteredMovies];
-  const updatedLikes = {
-    items: updatedLikeItems
-  };
+  const likes = req.user.likes;
+  const updatedLikes = LikeMethods.unlike(movieId, likes);
   User.findById(req.user._id)
     .then(user => {
-      user.likes = updatedLikes
-      user.save()
-      return res.json({message: 'Success'})
-
+      user.likes = updatedLikes;
+      user.save();
+      return res.json({ message: "Success" });
     })
-    .catch(err =>{
+    .catch(err => {
       console.log(err);
-      
     });
 };

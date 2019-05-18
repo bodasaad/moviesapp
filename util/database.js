@@ -16,11 +16,12 @@ MongoClient.connect('mongodb+srv://abdelrhman:ingodwetrust@onlineshop-zsiuv.mong
 });
 };
 
-const getDb = () =>{
+const getDb = (next) =>{
   if (_db){
     return _db
   }
   throw 'No Database Data'
+  
 };
 
 exports.mongoConnect = mongoConnect;

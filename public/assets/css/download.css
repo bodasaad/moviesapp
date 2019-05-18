@@ -6,13 +6,12 @@
   min-height: 300px;
   position: relative;
   display: grid;
-  grid-gap: .5em;
   grid-template-columns: 1fr;
   justify-content: center;
   align-items: center;
   box-shadow: var(--shadow);
   border-radius: var(--radius);
-  padding: 10px 0;
+  margin-bottom: var(--main-margin)
 }
 .download::before {
   content: "";
@@ -26,11 +25,9 @@
   z-index: 1;
 }
 .edit{
-  border-radius: var(--radius);
   z-index: 2;
   padding: var(--scnd-padding) 0;
-  background-color: rgba(0, 0, 0, 0.463);
-  border-bottom: 1px solid #fff
+  background-color: rgba(0, 0, 0, 0.663);
 }
 .download-moviedetails {
   z-index: 2;
@@ -44,6 +41,8 @@
   overflow: hidden;
   border: 2px solid #ccc;
   position: relative;
+  border-radius: var(--radius);
+
 }
 .download-moviedetails .poster .svg-inline--fa{
   position: absolute;
@@ -61,9 +60,10 @@
   float: left;
 }
 .download .title h3 {
-  font-size: 25px;
+  font-size: 26px;
   color: #fff;
   text-align: center;
+  font-weight: 600;
 }
 .download-moviedetails .info {
   color: #ccc;
@@ -99,6 +99,65 @@
   line-height: 45px;
   border-radius: var(--radius);
 }
+@-webkit-keyframes heartbeat {
+  0% {
+    -webkit-transform:scale(1)
+  }
+  50% {
+    -webkit-transform:scale(1.2)
+  }
+  100% {
+    -webkit-transform:scale(1)
+  }
+}
+
+@-moz-keyframes heartbeat {
+  0% {
+    -moz-transform:scale(1)
+  }
+  50% {
+    -moz-transform:scale(1.2)
+  }
+  100% {
+    -moz-transform:scale(1)
+  }
+}
+
+@-o-keyframes heartbeat {
+  0% {
+    -o-transform:scale(1)
+  }
+  50% {
+    -o-transform:scale(1.2)
+  }
+  100% {
+    -o-transform:scale(1)
+  }
+}
+
+@keyframes heartbeat {
+  0% {
+    transform:scale(1)
+  }
+  50% {
+    transform:scale(1.2)
+  }
+  100% {
+    transform:scale(1)
+  }
+}
+
+.heartbeat {
+  -webkit-animation-name: heartbeat;
+  -moz-animation-name: heartbeat;
+  -o-animation-name: heartbeat;
+  animation-name: heartbeat;
+}
+
+.animate-infinite-heartbeat {
+  -webkit-animation: heartbeat 2s infinite;
+  animation: heartbeat 2s infinite;
+}
 /* .download-actions a:first-child {
   background-color: #247b36;
 }
@@ -106,27 +165,18 @@
   background-color: #b7752b;
 } */
 .share{
-
-  z-index: 2;
   position: relative;
-  padding: var(--scnd-padding) 0;
-  border-radius: var(--radius);
-}
-.share::before {
-  content: "";
-  height: 100%;
-  width: 100%;
-  filter: blur(3px);
-  position: absolute;
-  left: 0;
-  top: 0px;
   z-index: 1;
-  border-radius: var(--radius);
+  padding: var(--scnd-padding) 0;
+  border-bottom-left-radius: var(--radius);
+  border-bottom-right-radius: var(--radius);
+  background-image: linear-gradient(to top, #000,rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.65));
 }
+
 .share h5{
   color: var(--main-color);
-  font-weight: bold;
   padding: 0 20px;
+  font-weight: 500;
   font-size: 18px;
 }
 .download-sub-menu {
@@ -151,17 +201,19 @@
   margin-bottom: 8px;
   padding: 5px 20px;
   color: #ccc;
+  font-size: 16px;
+  text-align: left
 }
 .donwload-details p span{
-  text-decoration: underline
+  text-decoration: underline;
+  font-weight: 600;
+  letter-spacing: 1px;
 
 }
 /* iPhone X, 6, 6+, 7, 7+, 8, 8+ ----------- */
 
 @media only screen and (min-width: 350px) and (max-width: 825px) {
-  .download{
-    padding: 10px 0;
-  }
+
 
   .download .download-moviedetails .info span {
     font-size: 0.9em;
@@ -177,6 +229,6 @@
     padding: 0 var(--scnd-padding);
   }
   .donwload-details p {
-    font-size: 16px;
+    font-size: 13px;
   }
 }

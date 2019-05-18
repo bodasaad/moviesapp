@@ -4,7 +4,7 @@
 <link rel="stylesheet" href="/assets/css/download.css">
 </head>
 <body>
-    <div class="wrapper">
+     <div class="wrapper">
 
         
     <!-- Start Navigation -->  
@@ -32,17 +32,17 @@
             </div>
         </div>
         <div class="download-actions">
-            <a href=""><i class="fas fa-download"></i></a>
+            <a href=""><i class="fas fa-download" style="color:#00e410;"></i></a>
             <form class="likes" action="/addlikes" method="POST">
                 <input type="hidden" name="movieId" value="<%= movie._id %>">
-                <button type="submit"><i class="fas fa-heart"></i></button>
+                <button type="submit"><i class="fas fa-heart  heartbeat animate-infinite-heartbeat" style="color: red;"></i></button>
             </form>
         </div>
         <div class="donwload-details">
-            <p><span>Premiered:</span>  <%= movie.premiered %> </p>
-            <p><span>Imdb:</span> <%= movie.externals.imdb %> </p>
-            <p><span>Productions:</span> <%= movie.network.name %> </p>
-            <p><span>Story Summrize:</span> <%= movie.summary %></p>
+            <p><span>Premiered:</span>   <%= movie.premiered %> </p>
+            <p><span>Imdb:</span>  <%= movie.externals.imdb %> </p>
+            <p><span>Productions:</span>  <%= movie.network.name %> </p>
+            <p><span>Story Summrize:</span>  <%= movie.summary %></p>
         </div>
     </div>
         <div class="share">
@@ -68,20 +68,17 @@
         </div>
     </div>
 
+    <%- include('./includes/main-slider.ejs') %>
 
     
-    <!-- Start Footer -->
-    <footer>
-        <div class="container">
-            <%- include('./includes/copyRight.ejs') %>
-        </div>
-    </footer>
-    <!-- End Footer -->
-
 </div>
+<%- include('./includes/copyRight.ejs') %>
     <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
     <script type="text/javascript" src="/slick/slick.min.js"></script>
-    <script src="/assets/js/plugin.js"></script>
+    
+    <script src="https://cdn.jsdelivr.net/npm/lax.js" ></script>
     <script src="/assets/js/fontawesome-all.min.js"></script>
+    <script src="/assets/js/plugin.js"></script>
 </body>
+</html>

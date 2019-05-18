@@ -14,7 +14,9 @@ const moviesSchema = new Schema({
     premiered:{},
     officialSite:{},
     schedule:{},
-    rating:{},
+    rating:{
+        average:{type: Number, index:true}
+    },
     weight:{},
     network:{},
     webChannel:{},

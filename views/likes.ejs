@@ -13,41 +13,22 @@
 
 
         <h1>Likes</h1>
-        <% if (likes.length > 0) { %>
-        <div id="horiz-slider">
-        <% likes.forEach(m => { %>
-            <div class="horiz-slider-item">
-            <img src="<%= m.poster %>" alt="Thumbnil" srcset="">
-            <div class="horiz-slider-info">
-                <h3 class="horiz-slider-title"><%= m.name %></h3>
-            </div>
-            <div class="horiz-slider-actions">
-                <a onclick="unlike(this)"><i class="far fa-heart"></i></a>
-                <input type="hidden" name="movieId" value="<%= m.movieId %>">
-                <a href="/movies/<%= m.movieId %>"><i class="fas fa-eye"></i></a>
-            </div>
-            </div>
-            <% }) %>
-            <% } else { %>
-            <h1>No Movies Aivelable!</h1>
-        </div>
-        <% } %>
+        <!-- Start Suffle Cards -->
+            <%- include('./includes/shuffleCards.ejs') %>
+        <!-- End Suffle Cards -->
+    
+    </div>
+    <%- include('./includes/copyRight.ejs') %>
 
-</div>
-    <!-- Start Footer -->
-    <footer>
-        <%- include('./includes/copyRight.ejs') %>
-</footer>
-<!-- End Footer -->
-</script>
-<script src="https://code.jquery.com/jquery-3.3.1.min.js"
-    integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
-    integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
-    crossorigin="anonymous"></script>
-<script type="text/javascript" src="/slick/slick.min.js"></script>
-<script src="/assets/js/plugin.js"></script>
-<script src="/assets/js/fontawesome-all.min.js"></script>
+    </script>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"
+        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
+        integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
+        crossorigin="anonymous"></script>
+    <script type="text/javascript" src="/slick/slick.min.js"></script>
+    <script src="/assets/js/plugin.js"></script>
+    <script src="/assets/js/fontawesome-all.min.js"></script>
 </body>
 
 </html>

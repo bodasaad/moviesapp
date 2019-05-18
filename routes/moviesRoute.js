@@ -21,6 +21,7 @@ router.get('/movies/:movieId', moviesController.getMovie);
 // router.get('/download/:movieId', moviesController.getDownload);
 
 
+router.get('/contact', moviesController.getContact);
 router.get('/about', moviesController.getAbout);
 
 

@@ -21,7 +21,7 @@
             
          
           <ul class="socialMedia">
-            <li><a href="#"><i class="fab fa-facebook"></i></a></li>
+            <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
             <li><a href="#"><i class="fab fa-twitter"></i></a></li>
             <li><a href="#"><i class="fab fa-instagram"></i></a></li>
             <li><a href="#"><i class="fab fa-google"></i></a></li>
@@ -87,7 +87,7 @@
           <% } %>
       </section>
       <% } else { %>
-      <h1>No Movies Aivelable!</h1>
+      <h3> Somthing Went Wrong No Movies Avielable Yet!</h3>
 
       <% } %>
     </div>
@@ -98,25 +98,49 @@
 
 
     <div class="wrapperSection">
+      <div id="advertisment-space">
+        <h3>Rent This Space For Advertisment</h3>
+        <a href="" style="color:#eee;">Know More..</a>
+      </div>
       <div class="sliders">
         
 
-        <% if (movies.length > 0) { %>
-          <h5 style="text-align:left;">High Rated.</h5>
+          <h5 class="slider-title">High Rated</h5>
         <div class="category-slider">
           <% heRt.forEach(function(m) { %>
+          <div class="category-slider_item">
+            <img src="<%= m.image.original %>" alt="">
+            <p><%= m.name %></p>
+              <p class="category-slider_item_rating" ><%= m.rating.average %></p>
+              <a href="/watch/<%= m._id %>"><i class="far fa-eye"></i></a>
+              <a href="/watch/<%= m._id %>"><i class="far fa-heart"></i></a>
+          </div>
+        <% }) %>
+      </div>
+      <a href="#" style="float:left; margin-left: 17px; margin-top: -45px; font-size: 16px; font-weight: 300; color: #eee;">See More..</a>
+
+      <h5  class="slider-title">New Updated</h5>
+      <div class="category-slider">
+        <% heRt.forEach(function(m) { %>
         <div class="category-slider_item">
             <img src="<%= m.image.original %>" alt="">
             <p><%= m.name %></p>
-            <p><%= m.rating.average %></p>
-            <a href="/watch/<%= m._id %>"><i class="fas fa-eye"></i></a>
+            <p class="category-slider_item_rating"><%= m.rating.average %></p>
+            <a href="/watch/<%= m._id %>"><i class="far fa-eye"></i></a>
             <a href="/watch/<%= m._id %>"><i class="far fa-heart"></i></a>
         </div>
-        <% }) %>
-      </div>
-      <% } %>
+      <% }) %>
+    </div>
+    <a href="#" style="float:left; margin-left: 17px; margin-top: -45px; font-size: 16px; font-weight: 300; color: #eee;">See More..</a>
+ 
   
 </div>
+
+<div id="advertisment-space">
+  <h3>Rent This Space For Advertisment</h3>
+  <a href="" style="color:#eee;">Know More..</a>
+</div>
+
       <!-- <div class="quick-accsess-menu">
         <h2>
           Quick Accsess
@@ -136,51 +160,42 @@
   
       </div> -->
       
-    <!-- Start Suffle Cards -->
-    <%- include('./includes/shuffleCards.ejs') %>
-    <!-- Start Suffle Cards -->
+
     </div>
 
 
     
 
 
-    <!-- Start Footer -->
-    <footer>
-
-      <div id="contact">
-        <div class="form-style">
-          <p>Stay <span>Alert</span> For Latest Movies. <br> Sign Up </p>
-          <form action="/signup" method="post">
-            <input type="text" name="name" placeholder="Your Name.">
-            <input type="email" name="email" placeholder="Your Email.">
-            <input type="password" name="password" placeholder="Write Password.">
-            <input type="password" name="passwordConf" placeholder="Rewrite Password.">
-            <button class="btn main-btn" type="submit">Sign Up</button>
-          </form>
-        </div>
-        <div class="photo">
-          <img class="img-responsive" src="/assets/images/unchecked.png" alt="Icon" srcset="">
-        </div>
+    <div id="contact">
+      <div class="form-style">
+        <p>Stay <span>Alert</span> For Latest Movies. <br> Sign Up </p>
+        <form action="/signup" method="post">
+          <input type="text" name="name" placeholder="Your Name.">
+          <input type="email" name="email" placeholder="Your Email.">
+          <input type="password" name="password" placeholder="Write Password.">
+          <input type="password" name="passwordConf" placeholder="Rewrite Password.">
+          <button class="btn main-btn" type="submit">Sign Up</button>
+        </form>
       </div>
-
-      <%- include('./includes/copyRight.ejs') %>
-    </footer>
-    <!-- End Footer -->
+      <div class="photo">
+        <img class="img-responsive" src="/assets/images/Untitled-1.svg" alt="Icon" srcset="">
+      </div>
+    </div>
 
 
   </div>
-  </script>
+  
+
+
+    <%- include('./includes/copyRight.ejs') %>
   <script src="https://code.jquery.com/jquery-3.3.1.min.js"
     integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 
     <script src="https://cdn.jsdelivr.net/npm/lax.js" ></script>
-    
-
   <script type="text/javascript" src="/slick/slick.min.js"></script>
   <script src="/assets/js/plugin.js"></script>
   <script src="/assets/js/nav.js"></script>
-  <script src="/assets/js/fontawesome-all.min.js"></script>
 </body>
 
 </html>

@@ -1,10 +1,16 @@
-
-      <% if (movies.length > 0) { %>
-    <section id="shuffle-cards" class="lax">
-    <% heRt.forEach(m => { %>
-        <div class="shuffle-cards_item">
-            <img src="<%= m.image.original %>" alt="Movie Poster">
-        </div>
-    <% }) %>
-    </section>
-    <% } %>
+<% if (likes.length > 0) { %>
+<section id="shuffle-cards" class="lax">
+  <% likes.forEach(m => { %>
+  <div class="shuffle-cards_item">
+    <img src="<%= m.poster %>" alt="Movie Poster" />
+    <div class="shuffle-cards_item_actions">
+      <input type="hidden" name="movieId" value="<%= m.movieId%>" />
+      <a onclick="unlike(this)"
+        ><i class="fas fa-heart" style="color: red;"></i
+      ></a>
+      <a href="/movies/<%= m.movieId%>">Go</a>
+    </div>
+  </div>
+  <% }) %>
+</section>
+<% } %>

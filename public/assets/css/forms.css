@@ -1,5 +1,5 @@
 .auth-form {
-  height: 75vh;
+  min-height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -15,14 +15,23 @@
   font-size: 33px;
   margin-bottom: 15px;
 }
-
+.auth-form p:last-child{
+  font-size: 14px;
+  color: #ccc;
+  margin: 0;
+  padding: var(--scnd-padding) 0;
+}
+.auth-form p:last-child a{
+  color: var(--main-color)
+}
 .auth-form form {
-  width: 40%;
+  width: 50%;
   margin: auto;
   padding: var(--main-padding) 0;
 }
 
-.auth-form input {
+.auth-form input,
+textarea {
   display: block;
   height: 80px;
   width: 100%;
@@ -35,12 +44,15 @@
   color: #fff;
   border-bottom: 2px solid var(--main-color);
 }
-@media only screen and (min-width: 375px) and (max-width: 825px) and (orientation: portrait) {
+@media only screen and (min-width: 375px) and (max-width: 825px){
   .auth-form form {
     width: 90%;
   }
   
 .auth-form input{
     height: 60px;
+}
+@media only screen and (min-width: 669px) and (max-width: 770px) {
+
 }
 }
