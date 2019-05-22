@@ -43,9 +43,10 @@ app.use(helmet());
 app.use(compression());
 
 app.use(async (req, res, next) => {
-  const hert = await Movie.find({ 'rating.average': { $gt: 8.8 } });
+  // Using Indexes in database to fetch it effecintly
+  const heighRating = await Movie.find({ 'rating.average': { $gt: 9 } });
   res.locals.isAuthenticated = req.session.isLoggedIn;
-  res.locals.heRt = hert;
+  res.locals.heighRating = heighRating;
   next();
 });
 
@@ -70,7 +71,6 @@ app.use(flash());
 // app.use('/admin', adminRoutes);
 app.use(moviesRoutes);
 app.use(userRoutes);
-
 app.use(errorController.get404);
 
 mongoose

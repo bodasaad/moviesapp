@@ -18,6 +18,11 @@
                         <p> <%= errmsg %> </p>
                     </div>
                     <% } %>
+                    <% if(SuccessMessage) { %>
+                        <div class="msg msg-success">
+                            <p> <%= SuccessMessage %> </p>
+                        </div>
+                        <% } %>
                 <p>login</p>
                     <input type="email" name="email" placeholder="Your Email.">
                     <input type="password" name="password" placeholder="Write Password.">
@@ -29,11 +34,12 @@
         
     </div>
     <%- include('./includes/copyRight.ejs') %>
-    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
-    <script type="text/javascript" src="/slick/slick.min.js"></script>
-    <script src="/assets/js/plugin.js"></script>
-    <script src="/assets/js/fontawesome-all.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"
+    integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/lax.js" ></script>
+  <script type="text/javascript" src="/slick/slick.min.js"></script>
+  <script src="/assets/js/plugin.js"></script>
 
 </body>
 

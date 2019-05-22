@@ -66,7 +66,6 @@ exports.postSignUp = (req, res, next) => {
 
   User.findOne({ email: email })
     .then(userDoc => {
-      console.log(`User is:${userDoc}`);
       if (!userDoc) {
         return crypto.randomBytes(32, (err, buffer) => {
           if (err) {
@@ -93,7 +92,7 @@ exports.postSignUp = (req, res, next) => {
                 subject: "Successfully Signed Up...",
                 html: `
             <p>We glad to be one of our commuinty one last step just click the link below to verify your account now</p>
-            <p>Click <a href="http://localhost:3000/verfiy/${token}">HERE</a></p>
+            <p>Click <a href="https://homeciinema.herokuapp.com//verfiy/${token}">HERE</a></p>
             `
               });
               return res.redirect("/thanks");
@@ -129,12 +128,12 @@ exports.getVerify = (req, res, next) => {
         return res.redirect("/");
       }
       return res.render("verify", {
-        path: "/Verfiy",
+        path: "/verify",
         title: "Verify Your Account",
         isAuthenticated: false,
         errmsg: null,
         SuccessMessage: null,
-        signUpToken: token
+        token: token
       });
     })
     .catch(err => {
@@ -144,22 +143,25 @@ exports.getVerify = (req, res, next) => {
 };
 
 exports.postVerify = (req, res, next) => {
-  const { email, signUpToken, password } = req.body;
+  const { email, token, password } = req.body;
 
-  User.findOne({ email: email }, { signUpToken: signUpToken })
+  console.log(token);
+
+  User.findOne({ email: email }, { signUpToken: token })
     .then(user => {
-      if (user.email === email) {
+      console.log(user);
+      if (!user) {
         res.render("verify", {
           path: "/Verfiy",
           title: "Verify Your Account",
           isAuthenticated: false,
           errmsg: "Please Make Sure To Add Correct Email And Password",
           SuccessMessage: null,
-          signUpToken: signUpToken
+          token: token
         });
       }
       if (!user.signUpToken) {
-        res.redirect("/");
+        return res.redirect("/");
       }
       user.signUpToken = null;
       return user.save();
@@ -247,6 +249,132 @@ exports.postLogout = (req, res, next) => {
     console.log(err);
     res.redirect("/");
   });
+};
+
+exports.getResetPass = (req, res, next) => {
+  let message = req.flash("error");
+  if (message.length > 0) {
+    message = message[0];
+  } else {
+    message = null;
+  }
+  res.render("reset", {
+    errmsg: message,
+    hasError: false,
+    path: "/reset",
+    title: `Reset Your Password`
+  });
+};
+
+exports.postResetPass = (req, res, next) => {
+  crypto.randomBytes(32, (err, buffer) => {
+    if (err) {
+      console.log(err);
+      return res.redirect("/reset");
+    }
+    const token = buffer.toString("hex");
+    User.findOne({ email: req.body.email })
+      .then(user => {
+        if (!user) {
+          req.flash("error", "This Email Dosent Found!!!");
+          return res.redirect("/reset");
+        }
+        user.resetPassToken = token;
+        user.resetPassTokenExpr = Date.now() + 3600000;
+        return user.save();
+      })
+      .then(result => {
+        transport.sendMail({
+          to: req.body.email,
+          from: "HomeCinema-Team@mail.com",
+          subject: "Password Reset...",
+          html: `
+        <p>You Requsetd a password reset</p>
+        <p>Click <a href="https://homeciinema.herokuapp.com/reset/${token}">HERE</a> To Change It</p>
+        `
+        });
+        res.render("thanks", {
+          path: "/reset",
+          title: "Request Submitted",
+          errmsg: null,
+          isAuthenticated: false
+        });
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  });
+};
+
+exports.getChangePass = async (req, res, next) => {
+  const token = req.params.token;
+  let message = req.flash("error");
+  if (message.length > 0) {
+    message = message[0];
+  } else {
+    message = null;
+  }
+  const userDoc = await User.findOne({ resetPassToken: token });
+  if (!userDoc) {
+    return res.redirect("/");
+  }
+
+  return res.render("verify", {
+    userId: userDoc._id,
+    errmsg: message,
+    SuccessMessage: null,
+    hasError: false,
+    token: token,
+    path: `/reset/${token}`,
+    title: `Reset Your Password`
+  });
+};
+exports.postChangePass = async (req, res, next) => {
+  const token = req.body.token;
+  const userId = req.body.userId;
+  const password = req.body.password;
+  const errors = validationResult(req);
+  const userDoc = await User.findOne({ _id: userId});
+
+  try {
+    if (!userDoc) {
+    return res.redirect(`/`);
+      
+    }
+    
+    if(!errors.isEmpty()){
+      return res.render("verify", {
+        userId: userDoc._id.toString(),
+        errmsg: errors.array()[0].msg,
+        SuccessMessage: null,
+        hasError: true,
+        token: token,
+        path: `/reset/${token}`,
+        title: `Reset Your Password`,
+        oldInputs: {
+          password: password,
+          confirmPassword: req.body.confirmPassword
+        }
+      });
+    }
+
+    const hashedpassword = await bcrypt.hash(password, 12);
+  
+    userDoc.password= hashedpassword;
+    userDoc.resetPassToken= null;
+    userDoc.save();
+
+    return res.render("login", {
+      errmsg: null,
+      SuccessMessage: "Password Successfuly Changed.",
+      hasError: false,
+      path: `/login`,
+      title: `Password Successfuly Changed`
+    });
+  } catch (err) {
+    res.redirect("/");
+    console.log(err);
+  }
 };
 
 exports.likesGet = (req, res, next) => {

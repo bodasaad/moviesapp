@@ -18,10 +18,8 @@ const userSchema = new Schema({
     type: String,
     required: true
   },
-  resetToken: String,
-  resetTokenExpr: Date,
+  resetPassToken: String,
   signUpToken: String,
-  signUpTokenExpr: Date,
   isAdmin: Boolean,
   likes: {
     items: [

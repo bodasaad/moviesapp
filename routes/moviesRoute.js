@@ -12,18 +12,12 @@ router.get('/', moviesController.getIndex);
 
 router.post('/search', moviesController.searchPost);
 
-
-// router.get('/watch/:movieId', moviesController.getWatch);
-
 router.get('/movies/:movieId', moviesController.getMovie);
 
-
-// router.get('/download/:movieId', moviesController.getDownload);
-
-
 router.get('/contact', moviesController.getContact);
+
 router.get('/about', moviesController.getAbout);
 
-
+router.get('/moviesCategory/:category', moviesController.getCategory);
 
 module.exports = router;

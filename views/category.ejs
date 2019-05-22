@@ -1,0 +1,75 @@
+<!-- Includes Head Part -->
+<%- include('./includes/head.ejs') %>
+
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="/assets/css/download.css">
+
+</head>
+
+<body>
+  <div class="wrapper">
+
+    <!-- Add Search Bar -->
+    <%- include('./includes/searchBar.ejs') %>
+    <!-- Add Search Bar -->
+
+    <!-- Start Navigation -->
+    <%- include('./includes/nav.ejs') %>
+    <!-- End Navigation -->
+
+    
+    <div id="card">
+      <% if (movies.length > 0) { %>
+
+      <% movies.forEach(function(m) { %>
+        
+      <a href="/movies/<%= m._id %>">
+      <div class="card-item lax">
+        <div class="card-poster">
+          <img src="<%= m.image.medium %>" alt="Poster">
+        </div>
+          <span class="card-item_rating">IMDb: <%= m.rating.average %></span>
+      </div>
+    </a>
+      <% }) %>
+      <section class="pagination">
+          <% if(currentPage !== 1 && prevPage !== 1) {%>
+          <a href="?page=1" class="btn">1</a>
+          <% } %>
+          <% if(hasPrevPage) {%>
+          <a href="?page=<%= prevPage %>" class="btn"><%= prevPage %></a>
+          <% } %>
+          <a href="?page=<%= currentPage %>" class="btn active"><%= currentPage %></a>
+          <% if(hasNextPage) {%>
+          <a href="?page=<%= nextPage %>" class="btn"><%= nextPage %></a>
+          <% } %>
+          <% if(hasAfterNext) {%>
+            <a href="?page=<%= afterNext %>" class="btn"><%= afterNext %></a>
+            <% } %>
+          <% if(lastPage !== currentPage && nextPage !== lastPage) {%>
+  
+          ...<a href="?page=<%= lastPage %>" class="btn">Last Page</a>
+          <% } %>
+      </section>
+      <% } else { %>
+      <h3> Somthing Went Wrong No Movies Avielable Yet!</h3>
+
+      <% } %>
+    </div>
+
+
+
+  </div>
+  
+
+
+    <%- include('./includes/copyRight.ejs') %>
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js"
+    integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/lax.js" ></script>
+  <script type="text/javascript" src="/slick/slick.min.js"></script>
+  <script src="/assets/js/plugin.js"></script>
+</body>
+
+</html>

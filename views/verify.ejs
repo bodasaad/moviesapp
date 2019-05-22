@@ -12,17 +12,28 @@
     <!-- End Navigation -->
      
         <div class="auth-form auth-form_signup" >
-            <form action="/verify" method="post">
-                <h1>Verify You Account</h1>
+            <form action=" <%= path === `/reset/${token}` ? '/changepass' : '/verify' %>" method="post">
+                
+                <% if( path ===`/reset/${token}` ){ %>
+                <h1>Enter New Password</h1>
+                <% } else{ %>
+                    <h1>Verify You Account</h1>
+                 <% } %>
                 <% if(errmsg) { %>
                     <div class="msg msg-err">
                         <p> <%= errmsg %> </p>
                     </div>
                     <% } %>
-                    <input type="email" name="email" placeholder="Your Email.">
                     <input type="password" name="password" placeholder="Write Password.">
-                    <input type="hidden" name="signUpToken" value="<%= signUpToken %>">
-                    <button type="submit">Verify</button>
+                    <% if(path === `/reset/${token}`){ %>
+                        <input type="password" name="Confpassword" placeholder="Confirm Password.">
+                        <input type="hidden" name="token" value="<%= token %>">
+                        <input type="hidden" name="userId" value="<%= userId %>">
+                        <% }else{ %>
+                            <input type="email" name="email" placeholder="Your Email.">
+                    <input type="hidden" name="token" value="<%= token %>">
+                    <% } %>
+                    <button class="btn" type="submit">Verify</button>
                 </form>
         </div>
 
