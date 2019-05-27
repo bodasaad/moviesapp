@@ -11,12 +11,16 @@ const userSchema = new Schema({
     required: true
   },
   email: {
-    type: String,
-    required: true
+    type: String
+  },
+  facebookId:{
+    type:String
+  },
+  accessToken:{
+    type: String
   },
   password: {
-    type: String,
-    required: true
+    type: String
   },
   resetPassToken: String,
   signUpToken: String,

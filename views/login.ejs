@@ -23,17 +23,43 @@
                             <p> <%= SuccessMessage %> </p>
                         </div>
                         <% } %>
-                <p>login</p>
+                <h1>login</h1>
                     <input type="email" name="email" placeholder="Your Email.">
                     <input type="password" name="password" placeholder="Write Password.">
                     <button class="btn main-btn" type="submit">login</button>
                     <p>Are You New Here? <a href="/signup">Sign Up..</a>Have You Frogot Your Password <a href="/reset">Reset Password.</a></p>
                 </form>
+                <div class="socailAuth">
+                    <a id="loginWithFB">Login With Facebook</a>
+                    <a id="loginWithGoogle">Login With Google</a>
+                </div>
         </div>
 
         
     </div>
     <%- include('./includes/copyRight.ejs') %>
+    
+    <script>
+        window.fbAsyncInit = function() {
+        FB.init({
+            appId      : '424035175097622',
+            cookie     : true,
+            xfbml      : true,
+            version    : 'v3.3'
+        });
+            
+        FB.AppEvents.logPageView();   
+            // fbSDKLoaded()
+        };
+    
+        (function(d, s, id){
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) {return;}
+        js = d.createElement(s); js.id = id;
+        js.src = "https://connect.facebook.net/en_US/sdk.js";
+        fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+    </script>
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"
     integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 

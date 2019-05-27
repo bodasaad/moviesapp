@@ -6,6 +6,7 @@ const nodeMailer = require("nodemailer");
 const sendgridTransport = require("nodemailer-sendgrid-transport");
 const crypto = require("crypto");
 const { validationResult } = require("express-validator/check");
+const fetch = require("node-fetch");
 
 const transport = nodeMailer.createTransport(
   sendgridTransport({
@@ -116,7 +117,9 @@ exports.postSignUp = (req, res, next) => {
       });
     })
     .catch(err => {
-      console.log(err);
+      const error = new Error(err);
+      error.httpStatusCode = 500;
+      return next(error);
     });
 };
 
@@ -137,8 +140,9 @@ exports.getVerify = (req, res, next) => {
       });
     })
     .catch(err => {
-      console.log(err);
-      res.redirect("/");
+      const error = new Error(err);
+      error.httpStatusCode = 500;
+      return next(error);
     });
 };
 
@@ -175,7 +179,9 @@ exports.postVerify = (req, res, next) => {
       });
     })
     .catch(err => {
-      console.log(err);
+      const error = new Error(err);
+      error.httpStatusCode = 500;
+      return next(error);
     });
 };
 
@@ -241,7 +247,53 @@ exports.postLogin = (req, res, next) => {
           });
       }
     })
-    .catch(err => console.log(err));
+    .catch(err => {
+      const error = new Error(err);
+      error.httpStatusCode = 500;
+      return next(error);
+    });
+};
+
+exports.postLoginWithFB = async (req, res, next) => {
+  const { accessToken, userID } = req.body;
+  const response = await fetch(
+    `https://graph.facebook.com/v3.3/me?access_token=${accessToken}&method=get&pretty=0&sdk=joey&suppress_http_code=1`
+  );
+  console.log();
+  
+  const rejson = await response.json();
+  console.log(rejson.name);
+    console.log(req.body);
+    
+  try {
+    if (rejson.id === userID) {
+      const response = await User.findOne({ facebookId: userID });
+
+      if (response) {
+        
+        req.session.isLoggedIn = true;
+        req.session.user = response;
+        req.session.save();
+        res.json({ status: 200, message: "User Loged In" });
+      } else {
+        const user = new User({
+          name: rejson.name,
+          email:null,
+          password:null,
+          facebookId: userID,
+          accessToken,
+          likes: { item: [] }
+        });
+         user.save();
+        res.json({ status: 201, message: "User Signedup" });
+      }
+    }
+  } catch (err) {
+    const error = new Error(err);
+    error.httpStatusCode = 500;
+    return next(error);
+
+  }
 };
 
 exports.postLogout = (req, res, next) => {
@@ -301,7 +353,9 @@ exports.postResetPass = (req, res, next) => {
         });
       })
       .catch(err => {
-        console.log(err);
+        const error = new Error(err);
+        error.httpStatusCode = 500;
+        return next(error);
       });
   });
 };
@@ -334,15 +388,14 @@ exports.postChangePass = async (req, res, next) => {
   const userId = req.body.userId;
   const password = req.body.password;
   const errors = validationResult(req);
-  const userDoc = await User.findOne({ _id: userId});
+  const userDoc = await User.findOne({ _id: userId });
 
   try {
     if (!userDoc) {
-    return res.redirect(`/`);
-      
+      return res.redirect(`/`);
     }
-    
-    if(!errors.isEmpty()){
+
+    if (!errors.isEmpty()) {
       return res.render("verify", {
         userId: userDoc._id.toString(),
         errmsg: errors.array()[0].msg,
@@ -359,9 +412,9 @@ exports.postChangePass = async (req, res, next) => {
     }
 
     const hashedpassword = await bcrypt.hash(password, 12);
-  
-    userDoc.password= hashedpassword;
-    userDoc.resetPassToken= null;
+
+    userDoc.password = hashedpassword;
+    userDoc.resetPassToken = null;
     userDoc.save();
 
     return res.render("login", {
@@ -372,18 +425,21 @@ exports.postChangePass = async (req, res, next) => {
       title: `Password Successfuly Changed`
     });
   } catch (err) {
-    res.redirect("/");
-    console.log(err);
+    const error = new Error(err);
+    error.httpStatusCode = 500;
+    return next(error);
   }
 };
 
-exports.likesGet = (req, res, next) => {
+exports.likesGet = (req, res, next) => {  
   const likes = req.user.likes.items;
-  res.render("likes", {
-    likes: likes,
-    path: "/likes",
-    title: `Movies You liked`
-  });
+  
+    return res.render("likes", {
+      likes: likes,
+      path: "/likes",
+      title: `Movies You liked`
+    });
+
 };
 
 exports.likesPost = (req, res, next) => {
@@ -403,7 +459,9 @@ exports.likesPost = (req, res, next) => {
         });
     })
     .catch(err => {
-      console.log(err);
+      const error = new Error(err);
+      error.httpStatusCode = 500;
+      return next(error);
     });
 };
 
@@ -415,9 +473,13 @@ exports.unlikePost = (req, res, next) => {
     .then(user => {
       user.likes = updatedLikes;
       user.save();
-      return res.json({ message: "Success" });
+      return res.json({ message: 'Success' })
     })
     .catch(err => {
-      console.log(err);
+      console.log("aaaa" + err);
+      
+      const error = new Error(err);
+      error.httpStatusCode = 500;
+      return next(error);
     });
 };

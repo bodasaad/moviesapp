@@ -11,32 +11,60 @@ const updateLax = () => {
 };
 window.requestAnimationFrame(updateLax);
 
+let faceBookBtn = document.getElementById("loginWithFB");
+if (faceBookBtn) {
+  faceBookBtn.addEventListener("click", logInWithFacebook);
+}
+function logInWithFacebook() {
+  FB.login(
+    response => {
+      const {
+        authResponse: { accessToken, userID }
+      } = response;
+      console.log(response.authResponse);
+
+      fetch("/loginWithFB", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ accessToken, userID })
+      })
+        .then(res => {
+          console.log(res);
+          
+        })
+    },
+    { scope: "email" }
+  );
+  
+
+  return false;
+  
+}
+
 // Shuffle Cards
 $("#shuffle-cards .shuffle-cards_item").on("click", function() {
   var zIndex = 0;
-  console.log("aaaa");
 
-  $(this)
-    .animate(
-      {
+  $(this).animate({
         marginLeft: 80,
         marginTop: 30
-      },
-      400,
-      function() {
+      }, 400, function() {
         zIndex--;
+
+        console.log(zIndex);
+        
         $(this).css("z-index", zIndex);
-      }
-    )
-    .animate(
-      {
+      }).animate({
         marginLeft: 0,
         marginTop: 0
-      },
-      700
-    );
+      },700, function() {
+        
+        $(this).css("z-index", zIndex);
+      });
 });
-$("#shuffle-cards .shuffle-cards_item a").on("click", (e) => {
+$("#shuffle-cards .shuffle-cards_item a").on("click", e => {
   e.stopPropagation();
 });
 
@@ -185,18 +213,22 @@ $(document).ready(function() {
     document.getElementById("demo").innerHTML = x;
   }
 
+
+});
+
   const unlike = link => {
     const item = link.parentNode.querySelector("shuffle-cards_item");
-
     const movieId = link.parentNode.querySelector("[name=movieId]").value;
-    console.log("Id is:" + movieId);
 
-    fetch(`/movie/${movieId}`, {
-      method: "POST"
+    fetch(`/movie/${ movieId }`, {
+      method: "POST",
+      headers: {
+        "Content-type": "application/json"
+      }
     })
       .then(res => {
         if (res.status !== 200 && res.status !== 201) {
-          throw new Error("Changing Quantinty failed...");
+          throw new Error("Removing Movie failed...");
         } else {
           $(link)
             .parents(".shuffle-cards_item")
@@ -205,10 +237,9 @@ $(document).ready(function() {
         }
       })
       .then(resData => {
-        console.log(`resData is ${resData}`);
+        console.log(`Good`);
       })
       .catch(err => {
-        console.log(err);
+        console.log('Somthing Went Worng!!');
       });
   };
-});

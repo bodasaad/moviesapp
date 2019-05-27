@@ -37,14 +37,14 @@ exports.getIndex = (req, res, next) => {
       });
     })
     .catch(err => {
-      console.log(err);
+      const error = new Error(err);
+      error.httpStatusCode = 500;
+      return next(error);
     });
 };
 
-
 exports.getCategory = async (req, res, next) => {
-
-  const itemPerPage =20
+  const itemPerPage = 30;
   const pageNum = +req.query.page || 1;
   const category = req.params.category;
   let totalItems;
@@ -53,16 +53,16 @@ exports.getCategory = async (req, res, next) => {
     .then(numMovies => {
       totalItems = numMovies;
       console.log(totalItems);
-      
+
       return Movie.find({ genres: category })
         .skip((pageNum - 1) * itemPerPage)
-        .limit(itemPerPage)
+        .limit(itemPerPage);
     })
     .then(movies => {
       res.render("category", {
         movies: movies,
         errmsg: null,
-        path: "/",
+        path: `/category/${category}`,
         title: category,
         currentPage: pageNum,
         hasNextPage: itemPerPage * pageNum < totalItems,
@@ -75,31 +75,50 @@ exports.getCategory = async (req, res, next) => {
       });
     })
     .catch(err => {
-      console.log(err);
-
-    })
-}
-
-
-
-
-exports.searchPost = (req, res, next) => {
-  let searchValue = req.body.search;
-  const db = getDb();
-  return db
-    .collection("movies")
-    .findOne({ name: searchValue })
-    .then(movie => {
-      res.render("download", {
-        movie: movie,
-        errmsg: null,
-        path: "/watch/:movieId",
-        title: "Search Result"
-      });
-    })
-    .catch(err => {
-      console.log(err);
+      const error = new Error(err);
+      error.httpStatusCode = 500;
+      return next(error);
     });
+};
+
+exports.searchPost = async (req, res, next) => {
+  let searchValue = req.body.search;
+  var regxValue = new RegExp(searchValue, "i");
+  console.log(regxValue);
+
+  try {
+    const movie = await Movie.findOne({ name: { $regex: regxValue } });
+
+    // Handel Error here Incase didnt find movie!!!
+    res.render("download", {
+      movie: movie,
+      errmsg: null,
+      path: "/download/:movieId",
+      title: "Search Result"
+    });
+  } catch (err) {
+    const error = new Error(err);
+    error.httpStatusCode = 500;
+    return next(error);
+  }
+
+  // const db = getDb();
+  // return db
+  //   .collection("movies")
+  //   .findOne({ name: searchValue })
+  //   .then(movie => {
+  //     res.render("download", {
+  //       movie: movie,
+  //       errmsg: null,
+  //       path: "/watch/:movieId",
+  //       title: "Search Result"
+  //     });
+  //   })
+  //   .catch(err => {
+  //     const error = new Error(err);
+  //     error.httpStatusCode = 500;
+  //     return next(error);
+  //   });
 };
 
 exports.getMovie = (req, res, next) => {
@@ -115,7 +134,9 @@ exports.getMovie = (req, res, next) => {
       });
     })
     .catch(err => {
-      console.log(err);
+      const error = new Error(err);
+      error.httpStatusCode = 500;
+      return next(error);
     });
 };
 
@@ -134,4 +155,3 @@ exports.getContact = (req, res, next) => {
     path: "/contact"
   });
 };
-

@@ -24,14 +24,18 @@
                             <p> <%= SuccessMessage %> </p>
                         </div>
                         <% } %>
-                        <p>Sign Up</p>
+                        <h1>Sign Up</h1>
                     <input type="text" name="name" placeholder="Your Name." value="<% if (hasError) { %><%= oldInputs.name %><% } %>">
                     <input type="email" name="email" placeholder="Your Email." value="<% if (hasError) { %><%= oldInputs.email %><% } %>">
                     <input type="password" name="password" placeholder="Write Password." value="<% if (hasError) { %><%= oldInputs.password %><% } %>">
                     <input type="password" name="confirmPassword" placeholder="Rewrite Password." value="<% if (hasError) { %><%= oldInputs.confirmPassword %><% } %>">
                     <button class="btn main-btn" type="submit">Sign Up</button>
-                    <p>Are You New Here? <a href="/signup">Sign Up..</a>Have You Frogot Your Password <a href="/reset">Reset Password.</a></p>
+                    <p>You have account? <a href="/login">Login..</a>Have You Frogot Your Password <a href="/reset">Reset Password.</a></p>
                 </form>
+                <div class="socailAuth">
+                    <a id="loginWithFB">Login With Facebook</a>
+                    <a id="loginWithGoogle">Login With Google</a>
+                </div>
         </div>
 
         

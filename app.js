@@ -13,20 +13,20 @@ const flash = require("connect-flash");
 const helmet = require("helmet");
 const compression = require("compression");
 
-
 const app = express();
 
-const MONGODBURI =
-  `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASSWORD}@onlineshop-zsiuv.mongodb.net/${process.env.MONGO_DATABASE}?retryWrites=true`;
+const MONGODBURI = `mongodb+srv://${process.env.MONGO_USER}:${
+  process.env.MONGO_PASSWORD
+}@onlineshop-zsiuv.mongodb.net/${process.env.MONGO_DATABASE}?retryWrites=true`;
 const store = new MongoDbStore({
-  uri:
-  MONGODBURI,
+  uri: MONGODBURI,
   collection: "sessions"
 });
 app.set("view engine", "ejs");
 app.set("views", "views");
 
 app.use(express.static(path.join(__dirname, "public")));
+app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(
   session({
@@ -44,7 +44,7 @@ app.use(compression());
 
 app.use(async (req, res, next) => {
   // Using Indexes in database to fetch it effecintly
-  const heighRating = await Movie.find({ 'rating.average': { $gt: 9 } });
+  const heighRating = await Movie.find({ "rating.average": { $gt: 9 } });
   res.locals.isAuthenticated = req.session.isLoggedIn;
   res.locals.heighRating = heighRating;
   next();
@@ -63,7 +63,9 @@ app.use((req, res, next) => {
 
       next();
     })
-    .catch(err => console.log(err));
+    .catch(err => {
+      next(new Error(err));
+    });
 });
 
 app.use(flash());
@@ -71,7 +73,19 @@ app.use(flash());
 // app.use('/admin', adminRoutes);
 app.use(moviesRoutes);
 app.use(userRoutes);
+
+// app.get("/500", errorController.get500);   
 app.use(errorController.get404);
+
+
+// app.use((error, req, res, next) => {
+//   res.status(500).render("500", {
+//     pageTitle: "Error!",
+//     path: "/500",
+//     isAuthenticated: req.session.isLoggedIn
+//   });
+//   console.log(`Error Is:${error}`);
+// });
 
 mongoose
   .connect(MONGODBURI)

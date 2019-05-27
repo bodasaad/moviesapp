@@ -897,7 +897,7 @@ nav .logo a {
   border-radius: var(--radius);
 }
 .shuffle-cards_item_actions{
-  background: rgba(0, 0, 0, 0.871);
+  background: rgba(0, 0, 0, 0.503);
   height: 20%;
   width: 100%;
   text-align: center;
@@ -907,15 +907,21 @@ nav .logo a {
   transform: translate(-50%, -5%);
   z-index: 9999;
   border-radius: var(--radius);
+  display: none;
 }
 .shuffle-cards_item:hover .shuffle-cards_item_actions{
-display: block;
+  display: block;
 }
-.shuffle-cards_item a {
+.shuffle-cards_item_actions a {
   cursor: pointer;
   border-radius: var(--radius);
   font-size: 30px;
   text-align: center;
+  color: #eee;
+  margin-right: 10px;
+}
+.shuffle-cards_item a:hover{
+  color: #ccc;
 }
 .shuffle-cards_item img {
   height: 100%;
@@ -1049,6 +1055,7 @@ display: block;
 }
 #copyright ul li a {
   color: #fff;
+  font-size: 14px;
 }
 #copyright h6 {
   font-weight: 200;
