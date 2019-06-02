@@ -93,7 +93,7 @@ exports.postSignUp = (req, res, next) => {
                 subject: "Successfully Signed Up...",
                 html: `
             <p>We glad to be one of our commuinty one last step just click the link below to verify your account now</p>
-            <p>Click <a href="https://homeciinema.herokuapp.com//verfiy/${token}">HERE</a></p>
+            <p>Click <a href="https://houseseries.herokuapp.com//verfiy/${token}">HERE</a></p>
             `
               });
               return res.redirect("/thanks");
@@ -342,7 +342,7 @@ exports.postResetPass = (req, res, next) => {
           subject: "Password Reset...",
           html: `
         <p>You Requsetd a password reset</p>
-        <p>Click <a href="https://homeciinema.herokuapp.com/reset/${token}">HERE</a> To Change It</p>
+        <p>Click <a href="https://houseseries.herokuapp.com/reset/${token}">HERE</a> To Change It</p>
         `
         });
         res.render("thanks", {
