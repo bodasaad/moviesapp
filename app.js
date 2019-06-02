@@ -44,7 +44,7 @@ app.use(compression());
 
 app.use(async (req, res, next) => {
   // Using Indexes in database to fetch it effecintly
-  const heighRating = await Movie.find({ "rating.average": { $gt: 9 } });
+  const heighRating = await Movie.find({ "rating.average": { $gt: 8.5 } });
   res.locals.isAuthenticated = req.session.isLoggedIn;
   res.locals.heighRating = heighRating;
   next();

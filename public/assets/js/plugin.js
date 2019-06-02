@@ -52,18 +52,14 @@ $("#shuffle-cards .shuffle-cards_item").on("click", function() {
         marginTop: 30
       }, 400, function() {
         zIndex--;
-
-        console.log(zIndex);
-        
         $(this).css("z-index", zIndex);
       }).animate({
         marginLeft: 0,
         marginTop: 0
-      },700, function() {
-        
-        $(this).css("z-index", zIndex);
       });
 });
+
+
 $("#shuffle-cards .shuffle-cards_item a").on("click", e => {
   e.stopPropagation();
 });
@@ -141,14 +137,14 @@ $(document).ready(function() {
       {
         breakpoint: 2690,
         settings: {
-          slidesToShow: 7,
+          slidesToShow: 10,
           slidesToScroll: 2
         }
       },
       {
         breakpoint: 1990,
         settings: {
-          slidesToShow: 6,
+          slidesToShow: 8,
           slidesToScroll: 2
         }
       },
@@ -182,9 +178,9 @@ $(document).ready(function() {
       },
 
       {
-        breakpoint: 375,
+        breakpoint: 370,
         settings: {
-          slidesToShow: 2,
+          slidesToShow: 3,
           slidesToScroll: 1
         }
       }

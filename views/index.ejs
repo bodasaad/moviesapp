@@ -13,11 +13,11 @@
     <header class="lax" data-lax-preset="zoomInOut-0.8">
       <div id="header">
         <div class="header-banner">
-          <p>Reach Your Movies Easy, No Ads and <span>Completely Free</span>.</p>
+          <p>Reach Your Series Easy, No Ads and <span>Completely Free</span>.</p>
         </div>
 
         <div class="welcom">
-          <h1>Home Cinema</h1>
+          <h1>House Series</h1>
             
          
           <ul class="socialMedia">
@@ -43,7 +43,11 @@
       </div>
     </header>
     <!-- End Header Section -->
-
+    <% if (errmsg){ %>
+      <div class="msg msg-err">
+          <p> <%= errmsg %> </p>
+      </div>
+      <% } %>
     <!-- Add Search Bar -->
     <%- include('./includes/searchBar.ejs') %>
     <!-- Add Search Bar -->
@@ -100,7 +104,7 @@
     <div class="wrapperSection">
       <div id="advertisment-space">
         <h3>Rent This Space For Advertisment</h3>
-        <a href="" style="color:#eee;">Know More..</a>
+        <a href=""  style="color:#eee;">Know More..</a>
       </div>
       <div class="sliders">
         
@@ -120,7 +124,7 @@
           </div>
         <% }) %>
       </div>
-      <a href="#" style="float:left; margin-left: 17px; margin-top: -45px; font-size: 16px; font-weight: 300; color: #eee;">See More..</a>
+      <a href="#" class="seeMore" >See More..</a>
 
       <h5  class="slider-title">New Updated</h5>
       <div class="category-slider">
@@ -137,7 +141,7 @@
         </div>
       <% }) %>
     </div>
-    <a href="#" style="float:left; margin-left: 17px; margin-top: -45px; font-size: 16px; font-weight: 300; color: #eee;">See More..</a>
+    <a href="#" class="seeMore" >See More..</a>
  
   
 </div>
@@ -185,7 +189,7 @@
         </form>
       </div>
       <div class="photo">
-        <img class="img-responsive" src="/assets/images/Untitled-1.svg" alt="Icon" srcset="">
+        <img class="img-responsive" src="/assets/images/PopCorn.svg" alt="Icon" srcset="">
       </div>
     </div>
 

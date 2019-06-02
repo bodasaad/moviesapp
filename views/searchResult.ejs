@@ -1,22 +1,88 @@
 <!-- Includes Head Part -->
 <%- include('./includes/head.ejs') %>
 <link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="/assets/css/download.css">
+</head>
+<body>
+     <div class="wrapper">
 
-<body style="min-height: 800px;">
-<div class="container">
- <div class="row">
-    <div class="card col-xl-4">
-        <img src="<%= movie.image.original %>" class="card-img-top" alt="...">
-        <div class="card-body">
-          <h5 class="card-title"><%= movie.name %></h5>
-          <p class="card-text"><%= movie.summary %></p>
-          <a href="<%= movie.url %>" class="btn btn-primary">Go somewhere</a>
-        </div>
-    </div>
-  </div>
-</div>          
-  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+        
+    <!-- Start Navigation -->  
+    <%- include('./includes/nav.ejs') %>
+    <!-- End Navigation -->
+    
+    <!-- Add Search Bar -->
+    <%- include('./includes/searchBar.ejs') %>
+    <!-- Add Search Bar -->
+
+      <% if(movie){ %>
+            <div class="download" style="background-image: url('<%= movie.image.medium %>');">
+                    <div class="edit">
+                   <div class="download-moviedetails">
+                       <div class="poster">
+                           <i class="fas fa-play"></i>
+                           <img src="<%= movie.image.original %>" alt="">
+                       </div>
+                       <div class="title">
+                           <h3><%= movie.name %></h3>
+                       </div>
+                       <div class="info">
+                           <span class="rating"><%= movie.rating.average %></span>
+                           <span class="qlty">HD</span>
+                           <span class="genres"><%= movie.genres %></span>
+                       </div>
+                   </div>
+                   <div class="download-actions">
+                       <a href=""><i class="fas fa-download" style="color:#00e410;"></i></a>
+                       <form class="likes" action="/addlikes" method="POST">
+                           <input type="hidden" name="movieId" value="<%= movie._id %>">
+                           <button type="submit"><i class="fas fa-heart  heartbeat animate-infinite-heartbeat" style="color: red;"></i></button>
+                       </form>
+                   </div>
+                   <div class="donwload-details">
+                       <p><span>Premiered:</span>   <%= movie.premiered %> </p>
+                       <p><span>Imdb:</span>  <%= movie.externals.imdb %> </p>
+                       <p><span>Productions:</span>  <%= movie.network.name %> </p>
+                       <p><span>Story Summrize:</span>  <%= movie.summary %></p>
+                   </div>
+               </div>
+                   <div class="share">
+           
+                       <h5>Do You like This Movies..! Share it with your friends now</h5>
+                       <ul class="download-sub-menu">
+                           <li>
+                               <a href="#">
+                                   <i class="fab fa-facebook"></i>
+                               </a>
+                           </li>
+                           <li>
+                               <a href="#">
+                                   <i class="fab fa-twitter"></i>
+                               </a>
+                           </li>
+                           <li>
+                               <a href="#">
+                                   <i class="fab fa-instagram"></i>
+                               </a>
+                           </li>
+                       </ul>
+                   </div>
+               </div>
+    
+              <% }else{ %>
+                <div class="msg msg-err">
+                    <p> <%= errmsg %> </p>
+                </div>
+                <% } %>
+    
+</div>
+<%- include('./includes/copyRight.ejs') %>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="/slick/slick.min.js"></script>
+    
+    <script src="https://cdn.jsdelivr.net/npm/lax.js" ></script>
+    <script src="/assets/js/fontawesome-all.min.js"></script>
+    <script src="/assets/js/plugin.js"></script>
 </body>
 </html>

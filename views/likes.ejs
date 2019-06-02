@@ -17,6 +17,21 @@
             <%- include('./includes/shuffleCards.ejs') %>
         <!-- End Suffle Cards -->
     
+        <h5  class="slider-title">Similar</h5>
+<div class="category-slider">
+  <% heighRating.forEach(function(m) { %>
+  <div class="category-slider_item">
+      <img src="<%= m.image.medium %>" alt="">
+      <p><%= m.name %></p>
+      <p class="category-slider_item_rating"><%= m.rating.average %></p>
+      <a href="/movies/<%= m._id %>"><i class="far fa-eye"></i></a> 
+      <form style="display:inline;" action="/addlikes" method="POST">
+        <input type="hidden" name="movieId" value="<%= m._id %>">
+        <button style="background:transparent; border:0" type="submit"><i class="far fa-heart  heartbeat animate-infinite-heartbeat" style="color: red;"></i></button>
+    </form>
+  </div>
+<% }) %>
+</div>
     </div>
     <%- include('./includes/copyRight.ejs') %>
 

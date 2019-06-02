@@ -13,6 +13,7 @@ router.get('/', moviesController.getIndex);
 router.post('/search', moviesController.searchPost);
 
 router.get('/movies/:movieId', moviesController.getMovie);
+router.get('/movies/', moviesController.getMovie);
 
 router.get('/contact', moviesController.getContact);
 

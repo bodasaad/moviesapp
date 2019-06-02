@@ -12,28 +12,16 @@
       </form>
     <% } %>
     <div class="logo">
-      <a href="/">Home Cinema</a>
+      <a href="/">House Series</a>
     </div>
     <div class="sideMenuI">
       <a id="sideNavIcon"><i class="fas fa-bars"></i></a>
     </div>
     <div id="sideMenu">
       <div class="inner">
-      <h2>Home Cinema</h2>
+      <h2>House Series</h2>
       <ul id="options">
-        <!-- <li class="categories">
-        <h4 class="active">Categories</h4>
-        <div class="categories-items">
-          <a href="/drama">Drama</a>
-          <a href="/action">Action</a>
-          <a href="/comedy">Comedy</a>
-          <a href="/romance">Romance</a>
-        </div>
-      </li> -->
-      
-      <% if (!isAuthenticated) { %>
-  
-
+      <% if (!isAuthenticated) { %>  
         <li><a href="/moviesCategory/Drama">Drama</a>
           <img src="/assets/images/tears.gif" alt="">
         </li>
@@ -48,33 +36,21 @@
           <img src="/assets/images/Untitled-1.gif" alt=""></li>
         <li>     
           <a href="/login">Login</a>
-          <!-- <div class="form-style">
-            <form action="/login" method="post">
-                <% if(errmsg) { %>
-                    <div class="msg msg-err">
-                        <p> <%= errmsg %> </p>
-                    </div>
-                    <% } %>
-                    <input type="email" name="email" placeholder="Your Email.">
-                    <input type="password" name="password" placeholder="Write Password.">
-                    <button class="btn main-btn" type="submit">login</button>
-              </form>
-          </div> -->
         </li>
           
         <% } %>  
         <% if (isAuthenticated) { %>
-          <li><a href="/signup">Drama</a>
+          <li><a href="/moviesCategory/Drama">Drama</a>
             <img src="/assets/images/tears.gif" alt="">
           </li>
-          <li><a href="/signup">Action</a>
+          <li><a href="/moviesCategory/Action">Action</a>
             <img src="/assets/images/Fest.gif" alt="">
           </li>
-          <li><a href="/signup">Romance</a>
+          <li><a href="/moviesCategory/Romance">Romance</a>
             <img src="/assets/images/romence.gif" alt="">
           </li>
-          <li><a href="/signup">Comedy</a></li>
-          <li><a href="/signup">Animation</a>
+          <li><a href="/moviesCategory/Comedy">Comedy</a></li>
+          <li><a href="/moviesCategory/animation">Animation</a>
             <img src="/assets/images/Untitled-1.gif" alt=""></li>  
           <li><a href="/likes">Likes</a></li>
           <li> 

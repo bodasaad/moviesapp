@@ -25,7 +25,7 @@ exports.getIndex = (req, res, next) => {
         movies: movies,
         errmsg: null,
         path: "/",
-        title: "Home Cinema: Brings Cinema's Movies To Your Home ",
+        title: "House Series: Brings Cinema's Movies To Your Home ",
         currentPage: pageNum,
         hasNextPage: itemPerPage * pageNum < totalItems,
         hasAfterNext: itemPerPage * pageNum < totalItems + 1,
@@ -89,13 +89,21 @@ exports.searchPost = async (req, res, next) => {
   try {
     const movie = await Movie.findOne({ name: { $regex: regxValue } });
 
-    // Handel Error here Incase didnt find movie!!!
-    res.render("download", {
+    if(movie === null){
+      res.render("searchResult", {
+        movie: movie,
+        errmsg: 'Nothing Found.. Try Something Else',
+        path: "/Search",
+        title: "Search Result"
+      });
+    }else{
+    res.render("searchResult", {
       movie: movie,
       errmsg: null,
       path: "/download/:movieId",
       title: "Search Result"
     });
+  }
   } catch (err) {
     const error = new Error(err);
     error.httpStatusCode = 500;
