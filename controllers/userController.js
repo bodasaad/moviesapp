@@ -8,14 +8,7 @@ const crypto = require("crypto");
 const { validationResult } = require("express-validator/check");
 const fetch = require("node-fetch");
 
-const transport = nodeMailer.createTransport(
-  sendgridTransport({
-    auth: {
-      api_key:
-        "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"
-    }
-  })
-);
+
 
 exports.getSignUp = (req, res, next) => {
   let message = req.flash("error");
