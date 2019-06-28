@@ -8,7 +8,14 @@ const crypto = require("crypto");
 const { validationResult } = require("express-validator/check");
 const fetch = require("node-fetch");
 
-
+const transporter = nodeMailer.createTransport(
+  sendgridTransport({
+    auth: {
+      api_key:
+        "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"
+    }
+  })
+);
 
 exports.getSignUp = (req, res, next) => {
   let message = req.flash("error");
@@ -80,16 +87,16 @@ exports.postSignUp = (req, res, next) => {
               return user.save();
             })
             .then(result => {
-              transport.sendMail({
+              res.redirect("/thanks");
+              return transporter.sendMail({
                 to: email,
                 from: "HomeCinema-Team@mail.com",
                 subject: "Successfully Signed Up...",
                 html: `
-            <p>We glad to be one of our commuinty one last step just click the link below to verify your account now</p>
-            <p>Click <a href="https://homeciinema.herokuapp.com/verfiy/${token}">HERE</a></p>
-            `
+                      <p>We glad to be one of our commuinty one last step just click the link below to verify your account now</p>
+                      <p>Click <a href="https://homeciinema.herokuapp.com/verfiy/${token}">HERE</a></p>
+                      `
               });
-              return res.redirect("/thanks");
             });
         });
       }
@@ -253,17 +260,16 @@ exports.postLoginWithFB = async (req, res, next) => {
     `https://graph.facebook.com/v3.3/me?access_token=${accessToken}&method=get&pretty=0&sdk=joey&suppress_http_code=1`
   );
   console.log();
-  
+
   const rejson = await response.json();
   console.log(rejson.name);
-    console.log(req.body);
-    
+  console.log(req.body);
+
   try {
     if (rejson.id === userID) {
       const response = await User.findOne({ facebookId: userID });
 
       if (response) {
-        
         req.session.isLoggedIn = true;
         req.session.user = response;
         req.session.save();
@@ -271,13 +277,13 @@ exports.postLoginWithFB = async (req, res, next) => {
       } else {
         const user = new User({
           name: rejson.name,
-          email:null,
-          password:null,
+          email: null,
+          password: null,
           facebookId: userID,
           accessToken,
           likes: { item: [] }
         });
-         user.save();
+        user.save();
         res.json({ status: 201, message: "User Signedup" });
       }
     }
@@ -285,7 +291,6 @@ exports.postLoginWithFB = async (req, res, next) => {
     const error = new Error(err);
     error.httpStatusCode = 500;
     return next(error);
-
   }
 };
 
@@ -329,7 +334,7 @@ exports.postResetPass = (req, res, next) => {
         return user.save();
       })
       .then(result => {
-        transport.sendMail({
+        transporter.sendMail({
           to: req.body.email,
           from: "HomeCinema-Team@mail.com",
           subject: "Password Reset...",
@@ -424,15 +429,14 @@ exports.postChangePass = async (req, res, next) => {
   }
 };
 
-exports.likesGet = (req, res, next) => {  
+exports.likesGet = (req, res, next) => {
   const likes = req.user.likes.items;
-  
-    return res.render("likes", {
-      likes: likes,
-      path: "/likes",
-      title: `Movies You liked`
-    });
 
+  return res.render("likes", {
+    likes: likes,
+    path: "/likes",
+    title: `Movies You liked`
+  });
 };
 
 exports.likesPost = (req, res, next) => {
@@ -466,11 +470,11 @@ exports.unlikePost = (req, res, next) => {
     .then(user => {
       user.likes = updatedLikes;
       user.save();
-      return res.json({ message: 'Success' })
+      return res.json({ message: "Success" });
     })
     .catch(err => {
       console.log("aaaa" + err);
-      
+
       const error = new Error(err);
       error.httpStatusCode = 500;
       return next(error);

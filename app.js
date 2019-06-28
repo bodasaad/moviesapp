@@ -15,9 +15,7 @@ const compression = require("compression");
 
 const app = express();
 
-const MONGODBURI = `mongodb+srv://${process.env.MONGO_USER}:${
-  process.env.MONGO_PASSWORD
-}@onlineshop-zsiuv.mongodb.net/${process.env.MONGO_DATABASE}?retryWrites=true`;
+const MONGODBURI = `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASSWORD}@onlineshop-zsiuv.mongodb.net/${process.env.MONGO_DATABASE}?retryWrites=true`;
 const store = new MongoDbStore({
   uri: MONGODBURI,
   collection: "sessions"
@@ -73,19 +71,18 @@ app.use(flash());
 // app.use('/admin', adminRoutes);
 app.use(moviesRoutes);
 app.use(userRoutes);
+app.get("/500", errorController.get500);
 
-// app.get("/500", errorController.get500);   
 app.use(errorController.get404);
 
-
-// app.use((error, req, res, next) => {
-//   res.status(500).render("500", {
-//     pageTitle: "Error!",
-//     path: "/500",
-//     isAuthenticated: req.session.isLoggedIn
-//   });
-//   console.log(`Error Is:${error}`);
-// });
+app.use((error, req, res, next) => {
+  res.status(500).render("500", {
+    pageTitle: "Error!",
+    path: "/500",
+    isAuthenticated: req.session.isLoggedIn
+  });
+  console.log(`Error Is:${error}`);
+});
 
 mongoose
   .connect(MONGODBURI)
