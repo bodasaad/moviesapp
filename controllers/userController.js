@@ -68,37 +68,31 @@ exports.postSignUp = (req, res, next) => {
   User.findOne({ email: email })
     .then(userDoc => {
       if (!userDoc) {
-        return crypto.randomBytes(32, (err, buffer) => {
-          if (err) {
-            console.log(err);
-            return res.redirect("/signup");
-          }
-          const token = buffer.toString("hex");
-          bcrypt
-            .hash(password, 12)
-            .then(hashedpassword => {
-              const user = new User({
-                name: name,
-                email: email,
-                password: hashedpassword,
-                likes: { item: [] },
-                signUpToken: token
-              });
-              return user.save();
-            })
-            .then(result => {
-              res.redirect("/thanks");
-              return transporter.sendMail({
-                to: email,
-                from: "HomeCinema-Team@mail.com",
-                subject: "Successfully Signed Up...",
-                html: `
-                      <p>We glad to be one of our commuinty one last step just click the link below to verify your account now</p>
-                      <p>Click <a href="https://homeciinema.herokuapp.com/verfiy/${token}">HERE</a></p>
-                      `
-              });
+        return bcrypt
+          .hash(password, 12)
+          .then(hashedpassword => {
+            const user = new User({
+              name: name,
+              email: email,
+              password: hashedpassword,
+              likes: { item: [] },
+              signUpToken: ""
             });
-        });
+            return user.save();
+          })
+          .then(result => {
+            transporter.sendMail({
+              to: email,
+              from: "HomeCinema-Team@mail.com",
+              subject: "Successfully Signed Up...",
+              html: `
+                      <p>We glad to be one of our commuinty one last step just click the link below to verify your account now</p>
+                      <p>Click <a href="https://homeciinema.herokuapp.com/verfiy/<-TOKEN->">HERE</a></p>
+                      `
+            });
+
+            return res.redirect("/thanks");
+          });
       }
       return res.status(422).render("signup", {
         title: "Sign Up",
