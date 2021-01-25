@@ -37,7 +37,7 @@
   grid-template-columns: 1fr;
 }
 .download-moviedetails .poster{
-  height: 200px;
+  height: 220px;
   overflow: hidden;
   border: 2px solid #ccc;
   position: relative;

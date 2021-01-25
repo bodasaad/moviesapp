@@ -18,25 +18,25 @@
 
         <div class="welcom">
           <h1>House Series</h1>
-            
-         
+
+
           <ul class="socialMedia">
             <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
             <li><a href="#"><i class="fab fa-twitter"></i></a></li>
             <li><a href="#"><i class="fab fa-instagram"></i></a></li>
             <li><a href="#"><i class="fab fa-google"></i></a></li>
           </ul>
-            <% if (!isAuthenticated) { %>
-            <div class="join">
-              <a href="/login">Login</a>
-              <a href="/signup">Become A Member.</a>
-            </div>
-            <% } else { %>
-            <div class="join">
-              <h3>Welcome <%= name %></h3>
-            </div>
-            <% } %>
+          <% if (!isAuthenticated) { %>
+          <div class="join">
+            <a href="/login">Login</a>
+            <a href="/signup">Become A Member.</a>
           </div>
+          <% } else { %>
+          <div class="join">
+            <h3>Welcome <%= name %></h3>
+          </div>
+          <% } %>
+        </div>
 
 
 
@@ -44,10 +44,10 @@
     </header>
     <!-- End Header Section -->
     <% if (errmsg){ %>
-      <div class="msg msg-err">
-          <p> <%= errmsg %> </p>
-      </div>
-      <% } %>
+    <div class="msg msg-err">
+      <p> <%= errmsg %> </p>
+    </div>
+    <% } %>
     <!-- Add Search Bar -->
     <%- include('./includes/searchBar.ejs') %>
     <!-- Add Search Bar -->
@@ -56,39 +56,43 @@
     <%- include('./includes/nav.ejs') %>
     <!-- End Navigation -->
 
-    
+    <!-- Start Slider -->
+    <%- include('./includes/main-slider.ejs', {items: heighRating, slidertitle:'High Rated'}) %>
+    <!-- Start Slider -->
+
+
     <div id="card">
       <% if (movies.length > 0) { %>
 
       <% movies.forEach(function(m) { %>
-        
+
       <a href="/movies/<%= m._id %>">
-      <div class="card-item lax">
-        <div class="card-poster">
-          <img src="<%= m.image.medium %>" alt="Poster">
-        </div>
+        <div class="card-item lax">
+          <div class="card-poster">
+            <img src="<%= m.image.medium %>" alt="Poster">
+          </div>
           <span class="card-item_rating">IMDb: <%= m.rating.average %></span>
-      </div>
-    </a>
+        </div>
+      </a>
       <% }) %>
       <section class="pagination">
-          <% if(currentPage !== 1 && prevPage !== 1) {%>
-          <a href="?page=1" class="btn">1</a>
-          <% } %>
-          <% if(hasPrevPage) {%>
-          <a href="?page=<%= prevPage %>" class="btn"><%= prevPage %></a>
-          <% } %>
-          <a href="?page=<%= currentPage %>" class="btn active"><%= currentPage %></a>
-          <% if(hasNextPage) {%>
-          <a href="?page=<%= nextPage %>" class="btn"><%= nextPage %></a>
-          <% } %>
-          <% if(hasAfterNext) {%>
-            <a href="?page=<%= afterNext %>" class="btn"><%= afterNext %></a>
-            <% } %>
-          <% if(lastPage !== currentPage && nextPage !== lastPage) {%>
-  
-          ...<a href="?page=<%= lastPage %>" class="btn">Last Page</a>
-          <% } %>
+        <% if( currentPage !== 1 && prevPage !== 1 ) { %>
+        <a href="?page=1" class="btn">1</a>
+        <% } %>
+        <% if(hasPrevPage) { %>
+        <a href="?page=<%= prevPage %>" class="btn"><%= prevPage %></a>
+        <% } %>
+        <a href="?page=<%= currentPage %>" class="btn active"><%= currentPage %></a>
+        <% if(hasNextPage) { %>
+        <a href="?page=<%= nextPage %>" class="btn"><%= nextPage %></a>
+        <% } %>
+        <% if(hasAfterNext) { %>
+        <a href="?page=<%= afterNext %>" class="btn"><%= afterNext %></a>
+        <% } %>
+        <% if(lastPage !== currentPage && nextPage !== lastPage) { %>
+
+        ...<a href="?page=<%= lastPage %>" class="btn">Last Page</a>
+        <% } %>
       </section>
       <% } else { %>
       <h3> Somthing Went Wrong No Movies Avielable Yet!</h3>
@@ -96,60 +100,23 @@
       <% } %>
     </div>
 
-    <!-- Start Slider -->
-    <!-- <%- include('./includes/slider.ejs') %> -->
-    <!-- Start Slider -->
 
 
     <div class="wrapperSection">
       <div id="advertisment-space">
         <h3>Rent This Space For Advertisment</h3>
-        <a href=""  style="color:#eee;">Know More..</a>
+        <a href="" style="color:#eee;">Know More..</a>
       </div>
-      <div class="sliders">
-        
+      <!-- Start Slider -->
+      <%- include('./includes/main-slider.ejs', {items: heighRating, slidertitle:'New Updated'}) %>
+      <!-- Start Slider -->
 
-          <h5 class="slider-title">High Rated</h5>
-        <div class="category-slider">
-          <% heighRating.forEach(function(m) { %>
-          <div class="category-slider_item">
-            <img src="<%= m.image.medium %>" alt="">
-            <p><%= m.name %></p>
-              <p class="category-slider_item_rating" ><%= m.rating.average %></p>
-              <a href="/movies/<%= m._id %>"><i class="far fa-eye"></i></a>   
-               <form style="display:inline;" action="/addlikes" method="POST">
-                <input type="hidden" name="movieId" value="<%= m._id %>">
-                <button style="background:transparent; border:0" type="submit"><i class="far fa-heart  heartbeat animate-infinite-heartbeat" style="color: red;"></i></button>
-            </form>
-          </div>
-        <% }) %>
+
+
+      <div id="advertisment-space">
+        <h3>Rent This Space For Advertisment</h3>
+        <a href="" style="color:#eee;">Know More..</a>
       </div>
-      <a href="#" class="seeMore" >See More..</a>
-
-      <h5  class="slider-title">New Updated</h5>
-      <div class="category-slider">
-        <% heighRating.forEach(function(m) { %>
-        <div class="category-slider_item">
-            <img src="<%= m.image.medium %>" alt="">
-            <p><%= m.name %></p>
-            <p class="category-slider_item_rating"><%= m.rating.average %></p>
-            <a href="/movies/<%= m._id %>"><i class="far fa-eye"></i></a> 
-            <form style="display:inline;" action="/addlikes" method="POST">
-              <input type="hidden" name="movieId" value="<%= m._id %>">
-              <button style="background:transparent; border:0" type="submit"><i class="far fa-heart  heartbeat animate-infinite-heartbeat" style="color: red;"></i></button>
-          </form>
-        </div>
-      <% }) %>
-    </div>
-    <a href="#" class="seeMore" >See More..</a>
- 
-  
-</div>
-
-<div id="advertisment-space">
-  <h3>Rent This Space For Advertisment</h3>
-  <a href="" style="color:#eee;">Know More..</a>
-</div>
 
       <!-- <div class="quick-accsess-menu">
         <h2>
@@ -169,12 +136,12 @@
         </div>
   
       </div> -->
-      
+
 
     </div>
 
 
-    
+
 
 
     <div id="contact">
@@ -195,17 +162,17 @@
 
 
   </div>
-  
 
 
-    <%- include('./includes/copyRight.ejs') %>
+
+  <%- include('./includes/copyRight.ejs') %>
   <script src="https://code.jquery.com/jquery-3.3.1.min.js"
     integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 
-    <script src="https://cdn.jsdelivr.net/npm/lax.js" ></script>
+  <script src="https://cdn.jsdelivr.net/npm/lax.js"></script>
   <script type="text/javascript" src="/slick/slick.min.js"></script>
-  <script src="/assets/js/plugin.js"></script>
   <script src="/assets/js/nav.js"></script>
+  <script src="/assets/js/plugin.js"></script>
 </body>
 
 </html>

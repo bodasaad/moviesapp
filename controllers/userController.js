@@ -313,7 +313,6 @@ exports.getResetPass = (req, res, next) => {
 exports.postResetPass = (req, res, next) => {
   crypto.randomBytes(32, (err, buffer) => {
     if (err) {
-      console.log(err);
       return res.redirect("/reset");
     }
     const token = buffer.toString("hex");
@@ -337,7 +336,7 @@ exports.postResetPass = (req, res, next) => {
         <p>Click <a href="https://homeciinema.herokuapp.com/reset/${token}">HERE</a> To Change It</p>
         `
         });
-        res.render("thanks", {
+        return res.render("thanks", {
           path: "/reset",
           title: "Request Submitted",
           errmsg: null,

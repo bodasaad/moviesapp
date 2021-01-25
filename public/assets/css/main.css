@@ -242,10 +242,17 @@ header {
   border-radius: var(--radius);
   position: relative;
 }
+#header .join a:nth-child(2){
+  background-color: var(--main-color) !important;
+  color: #333 !important;
+}
 
 #header .join a:hover {
   text-decoration: none;
   background-color: #222;
+}
+#header .join a:nth-child(2):hover{
+  border-color: #fff !important;
 }
 #header .join h3 {
   font-weight: 200;
@@ -265,15 +272,17 @@ header {
   margin: 30px 0;
 }
 .form-style {
-  width: 80%;
+  width: 95%;
   margin: auto;
 }
 .form-style input {
   width: 100%;
-  height: 45px;
+  height: 60px;
   text-align: center;
   margin: 10px 0;
-  border-radius: var(--radius);
+  color: #fff;
+  background: transparent;
+  border-bottom: 1px solid var(--main-color);
 }
 .form-style textarea {
   background-color: #fff;
@@ -551,7 +560,6 @@ nav .logo a {
   border-radius: var(--radius);
   width: 170px;
   height: 120px;
-  opacity: 0.7;
   padding: 0;
   transition: 0.3s all ease-in-out;
   display: grid;
@@ -759,19 +767,25 @@ nav .logo a {
   justify-content: center;
   margin: var(--main-margin) 0;
 }
+.slider{
+  margin-bottom: var(--main-margin);
+  padding: var(--scnd-padding);
+  background-color: #111;
+  border-radius: 8px;
+}
 .slider-title {
   text-align: left;
-  margin: 0 0 0 10px;
-  font-size: 17px;
-  font-weight: 600;
+  margin: 10px  0;
+  font-size: 21px;
+  /* font-weight: 600; */
 }
-.category-slider {
+.slider-items {
   display: grid;
   grid-template-columns: 1fr;
   margin-bottom: var(--main-margin);
   transition: 0.3s all ease-in-out;
 }
-.category-slider_item {
+.slider-items_item {
   margin: 0 5px;
   text-align: center;
   height: auto;
@@ -781,27 +795,28 @@ nav .logo a {
   transition: 0.3s all ease-in-out;
   cursor: pointer;
   background-color: #11111180;
+  padding: 0 4px;
 }
 
-.category-slider_item:focus {
+.slider-items_item:focus {
   outline: 0;
   border-color: #fae3a8;
   color: #eee;
 }
-.category-slider_item img {
+.slider-items_item img {
   height: 75%;
   width:100%;
   border-radius: 5px;
   margin: 0 auto;
   opacity: 0.9;
 }
-.category-slider_item:hover {
+.slider-items_item:hover {
   background-color: rgba(17, 17, 17, 0.666);
 }
-.category-slider_item:hover img {
+.slider-items_item:hover img {
   opacity: 1;
 }
-.category-slider_item a {
+.slider-items_item a {
   text-decoration: none;
   color: #eee;
   font-size: 0.8em;
@@ -812,27 +827,30 @@ nav .logo a {
   float: left;
   margin-left: 10px;
   margin-top: -50px;
-  font-size: 14px;
+  font-size: 18px;
   font-weight: 400;
   color: #ccc;
   border-radius: 12px;
-  padding: 0 6px;
+  padding:4px
 }
-.category-slider_item a:last-child {
+.seeMore:hover{
+  color: #fff;
+  border-bottom: 1px solid var(--main-color);
+}
+.slider-items_item a:last-child {
   color: red;
 }
-.category-slider_item a:first-of-type {
+.slider-items_item a:first-of-type {
   color: var(--main-color);
 }
-.category-slider_item_rating {
-  background-color: #000;
-  box-shadow: inset 0px 4px 14px 6px yellow;
+.slider-items_item_rating {
+  background-color: yellow;
   position: absolute;
   top: 0;
   right: 0;
-  color: #ccc;
+  color: #000;
   font-weight: 600;
-  font-size: 12px;
+  font-size: 11px;
   height: 40px;
   width: 40px;
   line-height: 40px;
@@ -861,7 +879,7 @@ nav .logo a {
     39% 35%
   );
 }
-.category-slider_item p:nth-child(2) {
+.slider-items_item p:nth-child(2) {
   font-weight: 200;
   font-size: 12px;
   letter-spacing: 0.5px;
@@ -870,7 +888,7 @@ nav .logo a {
 
 .slick-prev,
 .slick-next {
-  top: 96%;
+  top: 100%;
 }
 .slick-prev {
   left: 75%;
@@ -1040,7 +1058,7 @@ nav .logo a {
 #copyright {
   width: 75%;
   min-height: calc(30vh - 60px);
-  background-color: rgb(0, 0, 0);
+  background-color:#111;
   text-align: center;
   color: #fff;
   display: grid;
@@ -1261,16 +1279,15 @@ nav .logo a {
     font-size: 10px;
     margin: 7px 0;
   }
-  .slider-title{
-    font-size: 14px;
-  }
-  .category-slider_item p:nth-child(2) {
+
+  .slider-items_item p:nth-child(2) {
     font-size: 11px;
+    margin-top: 3px;
   }
   .wrapperSection {
     grid-template-columns: 1fr;
   }
-  .category-slider_item {
+  .slider-items_item {
     margin: 0 3px;
   }
   #contact {

@@ -1,13 +1,20 @@
-<h5 class="slider-title">High Rated</h5>
-<div class="category-slider">
-  <% heighRating.forEach(function(m) { %>
-  <div class="category-slider_item">
-    <img src="<%= m.image.medium %>" alt="">
-    <p><%= m.name %></p>
-      <p class="category-slider_item_rating" ><%= m.rating.average %></p>
-      <a href="/watch/<%= m._id %>"><i class="far fa-eye"></i></a>
-      <a href="/watch/<%= m._id %>"><i class="far fa-heart"></i></a>
+<div class="slider">
+
+  <h5 class="slider-title"><%=slidertitle%></h5>
+  <div class="slider-items">
+    <% items.forEach(function(m) { %>
+    <a href="/movies/<%= m._id %>" class="slider-items_item">
+      <img src="<%= m.image.medium %>" alt="">
+      <p><%= m.name %></p>
+      <p class="slider-items_item_rating"><%= m.rating.average %></p>
+      <!-- <a href="/movies/<%= m._id %>"><i class="far fa-eye"></i></a> -->
+      <form style="display:inline;" action="/addlikes" method="POST">
+        <input type="hidden" name="movieId" value="<%= m._id %>">
+        <button style="background:transparent; border:0" type="submit"><i
+            class="far fa-heart  heartbeat animate-infinite-heartbeat" style="color: red;"></i></button>
+      </form>
+    </a>
+    <% }) %>
   </div>
-<% }) %>
+  <a href="#" class="seeMore">See More..</a>
 </div>
-<a href="#" style="float:left; margin-left: 17px; margin-top: -45px; font-size: 16px; font-weight: 300; color: #eee;">See More..</a>

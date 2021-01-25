@@ -1,14 +1,17 @@
-<% if (likes.length > 0) { %>
 <section id="shuffle-cards" class="lax">
+  <% if (likes.length > 0) { %>
   <% likes.forEach(m => { %>
   <div class="shuffle-cards_item">
     <img src="<%= m.poster %>" alt="Movie Poster" />
     <div class="shuffle-cards_item_actions">
       <input type="hidden" name="movieId" value="<%= m.movieId %>" id="">
-      <a onclick="unlike(this)"><i class="fas fa-heart  heartbeat animate-infinite-heartbeat" style="color: red;"></i></a>
+      <a onclick="unlike(this)"><i class="fas fa-heart  heartbeat animate-infinite-heartbeat"
+          style="color: red;"></i></a>
       <a href="/movies/<%= m.movieId %>"><i class="far fa-eye" style="color: yellowgreen;"></i></a>
     </div>
   </div>
   <% }) %>
-</section>
-<% } %>
+  <% }else{ %>
+    <h3>You Don't Liked Any Movie Yet!!</h3>
+  <%}%>
+  </section>

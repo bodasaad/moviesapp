@@ -9,7 +9,7 @@ const getDb = require("../util/database").getDb;
 const ObjectId = mongodb.ObjectId;
 
 exports.getIndex = (req, res, next) => {
-  const itemPerPage = 10;
+  const itemPerPage = 15;
   const pageNum = +req.query.page || 1;
   let totalItems;
   Movie.find()
@@ -87,24 +87,18 @@ exports.searchPost = async (req, res, next) => {
   console.log(regxValue);
 
   try {
-    const movie = await Movie.findOne({ name: { $regex: regxValue } });
+    const movie = await Movie.find({ name: { $regex: regxValue } });
+    
 
-    if(movie === null){
-      res.render("searchResult", {
-        movie: movie,
-        errmsg: 'Nothing Found.. Try Something Else',
-        path: "/Search",
-        title: "Search Result"
-      });
-    }else{
-    res.render("searchResult", {
+    return res.render("searchResult", {
       movie: movie,
       errmsg: null,
-      path: "/download/:movieId",
+      path: "/download",
       title: "Search Result"
     });
-  }
   } catch (err) {
+    console.log(err);
+    
     const error = new Error(err);
     error.httpStatusCode = 500;
     return next(error);

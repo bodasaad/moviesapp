@@ -2,73 +2,76 @@
 
 /*global console, alert, $, jQuery ,false*/
 
-"use strict";
-lax.setup(); // init
+$(document).ready(function () {
+  lax.init()
+  "use strict";
+  // lax.setup(); // init
 
-const updateLax = () => {
-  lax.update(window.scrollY);
-  window.requestAnimationFrame(updateLax);
-};
-window.requestAnimationFrame(updateLax);
+  // const updateLax = () => {
+  //   lax.update(window.scrollY);
+  //   window.requestAnimationFrame(updateLax);
+  // };
+  // window.requestAnimationFrame(updateLax);
 
-let faceBookBtn = document.getElementById("loginWithFB");
-if (faceBookBtn) {
-  faceBookBtn.addEventListener("click", logInWithFacebook);
-}
-function logInWithFacebook() {
-  FB.login(
-    response => {
-      const {
-        authResponse: { accessToken, userID }
-      } = response;
-      console.log(response.authResponse);
 
-      fetch("/loginWithFB", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({ accessToken, userID })
-      })
-        .then(res => {
-          console.log(res);
-          
+
+  let faceBookBtn = document.getElementById("loginWithFB");
+  if (faceBookBtn) {
+    faceBookBtn.addEventListener("click", logInWithFacebook);
+  }
+  function logInWithFacebook() {
+    FB.login(
+      response => {
+        const {
+          authResponse: { accessToken, userID }
+        } = response;
+        console.log(response.authResponse);
+
+        fetch("/loginWithFB", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({ accessToken, userID })
         })
-    },
-    { scope: "email" }
-  );
-  
+          .then(res => {
+            console.log(res);
 
-  return false;
-  
-}
-
-// Shuffle Cards
-$("#shuffle-cards .shuffle-cards_item").on("click", function() {
-  var zIndex = 0;
-
-  $(this).animate({
-        marginLeft: 80,
-        marginTop: 30
-      }, 400, function() {
-        zIndex--;
-        $(this).css("z-index", zIndex);
-      }).animate({
-        marginLeft: 0,
-        marginTop: 0
-      });
-});
+          })
+      },
+      { scope: "email" }
+    );
 
 
-$("#shuffle-cards .shuffle-cards_item a").on("click", e => {
-  e.stopPropagation();
-});
+    return false;
 
-$(document).ready(function() {
+  }
+
+  // Shuffle Cards
+  $("#shuffle-cards .shuffle-cards_item").on("click", function () {
+    var zIndex = 0;
+
+    $(this).animate({
+      marginLeft: 80,
+      marginTop: 30
+    }, 400, function () {
+      zIndex--;
+      $(this).css("z-index", zIndex);
+    }).animate({
+      marginLeft: 0,
+      marginTop: 0
+    });
+  });
+
+
+  $("#shuffle-cards .shuffle-cards_item a").on("click", e => {
+    e.stopPropagation();
+  });
+
   $(".categories-items").css({ display: "block" });
 
   // Accordion Effect
-  $(".categories h4").on("click", function() {
+  $(".categories h4").on("click", function () {
     $(this)
       .addClass("active")
       .siblings()
@@ -81,20 +84,20 @@ $(document).ready(function() {
       .slideUp(500);
   });
 
-  $("#sideNavIcon").on("click", function() {
+  $("#sideNavIcon").on("click", function () {
     $("#sideMenu").css({ opacity: "1" });
     $("#sideMenu").css({ right: "0" });
 
-    setTimeout(function() {
+    setTimeout(function () {
       $("#sideMenu .inner").css({ transform: "scale(1)" });
       console.log("Hey");
     }, 500);
   });
 
-  $("#sideMenu").click(function() {
+  $("#sideMenu").click(function () {
     $("#sideMenu .inner").css({ transform: "scale(0)" });
 
-    setTimeout(function() {
+    setTimeout(function () {
       $("#sideMenu").css({ right: "-100%" });
 
       console.log("closed");
@@ -104,7 +107,7 @@ $(document).ready(function() {
   $(".sideMenu_cls").on("click", () => {
     $("#sideMenu .inner").css({ transform: "scale(0)" });
 
-    setTimeout(function() {
+    setTimeout(function () {
       $("#sideMenu").css({ opacity: "0" });
       $("#sideMenu").css({ right: "-100%" });
 
@@ -112,21 +115,21 @@ $(document).ready(function() {
     }, 300);
   });
 
-  $("#sideMenu .inner").click(function(e) {
+  $("#sideMenu .inner").click(function (e) {
     e.stopPropagation();
   });
 
-  $(".slider").slick({
-    autoplay: true,
-    autoplaySpeed: 3500,
-    mobileFirst: true,
-    arrows: false,
-    speed: 900
-  });
+  // $(".slider").slick({
+  //   autoplay: true,
+  //   autoplaySpeed: 3500,
+  //   mobileFirst: true,
+  //   arrows: false,
+  //   speed: 900
+  // });
 
   // var screenWidth = screen.width;
 
-  $(".category-slider").slick({
+  $(".slider-items").slick({
     speed: 300,
     centerPadding: "40px",
     arrows: true,
@@ -191,9 +194,9 @@ $(document).ready(function() {
   });
 
   //Show&Hide Password
-  $(function() {
+  $(function () {
     "use strict";
-    $("#passStatus").click(function(e) {
+    $("#passStatus").click(function (e) {
       e.preventDefault();
       $(this).toggleClass("active");
       if ($(this).hasClass("active")) {
@@ -212,30 +215,33 @@ $(document).ready(function() {
 
 });
 
-  const unlike = link => {
-    const item = link.parentNode.querySelector("shuffle-cards_item");
-    const movieId = link.parentNode.querySelector("[name=movieId]").value;
+const unlike = link => {
+  const item = link.parentNode.querySelector("shuffle-cards_item");
+  const movieId = link.parentNode.querySelector("[name=movieId]").value;
 
-    fetch(`/movie/${ movieId }`, {
-      method: "POST",
-      headers: {
-        "Content-type": "application/json"
+  fetch(`/movie/${movieId}`, {
+    method: "POST",
+    headers: {
+      "Content-type": "application/json"
+    }
+  })
+    .then(res => {
+      if (res.status !== 200 && res.status !== 201) {
+        throw new Error("Removing Movie failed...");
+      } else {
+        $(link)
+          .parents(".shuffle-cards_item")
+          .remove();
+          if($('.shuffle-cards_item').length == 0){
+            $('#shuffle-cards').append("<h3>You Don't Liked Any Movie Yet!!</h3>")
+          }
+        return res.json();
       }
     })
-      .then(res => {
-        if (res.status !== 200 && res.status !== 201) {
-          throw new Error("Removing Movie failed...");
-        } else {
-          $(link)
-            .parents(".shuffle-cards_item")
-            .remove();
-          return res.json();
-        }
-      })
-      .then(resData => {
-        console.log(`Good`);
-      })
-      .catch(err => {
-        console.log('Somthing Went Worng!!');
-      });
-  };
+    .then(resData => {
+      console.log(``);
+    })
+    .catch(err => {
+      console.log('Somthing Went Worng!!');
+    });
+};
